@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LP — Declare Cripto × Boost Research | IR 2026</title>
+<title>IR para Cripto 2026 — E-book Gratuito | Boost Research</title>
 <style>
-  /* ===== RESET & BASE ===== */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
@@ -18,539 +17,218 @@
     --gray:      #A0A0C0;
     --gray-dim:  #3A3A5C;
     --red:       #FF4444;
+    --yellow:    #FFB347;
     --font:      'Inter', 'Sora', system-ui, sans-serif;
   }
 
   html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: var(--font); line-height: 1.6; font-size: 16px; }
 
-  body {
-    background: var(--bg);
-    color: var(--white);
-    font-family: var(--font);
-    line-height: 1.6;
-    font-size: 16px;
-  }
-
-  /* ===== LAYOUT ===== */
   .container { max-width: 1060px; margin: 0 auto; padding: 0 24px; }
   .section    { padding: 80px 0; }
-  .section--dark  { background: var(--bg); }
-  .section--mid   { background: var(--bg2); }
-  .section--card  { background: var(--bg3); }
+  .section--dark { background: var(--bg); }
+  .section--mid  { background: var(--bg2); }
+  .section--card { background: var(--bg3); }
 
-  /* ===== LABELS DE WIREFRAME ===== */
-  .wf-label {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--green);
-    border: 1px solid var(--green-dim);
-    border-radius: 3px;
-    padding: 2px 8px;
-    margin-bottom: 20px;
-    opacity: 0.7;
-  }
-
-  /* ===== COMPONENTS ===== */
   .tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--green);
-    border: 1px solid var(--green-dim);
-    border-radius: 20px;
-    padding: 4px 14px;
-    margin-bottom: 28px;
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--green); border: 1px solid var(--green-dim); border-radius: 20px;
+    padding: 4px 14px; margin-bottom: 28px;
   }
   .tag::before { content: ''; width: 6px; height: 6px; background: var(--green); border-radius: 50%; }
 
-  .divider-green {
-    width: 40px;
-    height: 3px;
-    background: var(--green);
-    margin: 20px 0;
-  }
-  .divider-full {
-    width: 100%;
-    height: 1px;
-    background: var(--gray-dim);
-    margin: 60px 0;
-  }
+  .divider-green { width: 40px; height: 3px; background: var(--green); margin: 20px 0; }
+  .divider-full  { width: 100%; height: 1px; background: var(--gray-dim); margin: 40px 0; }
 
-  /* ===== HEADLINE SIZES ===== */
-  .h1 { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; }
-  .h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; line-height: 1.25; }
-  .h3 { font-size: 1.15rem; font-weight: 700; }
+  .h1  { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; }
+  .h2  { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; line-height: 1.25; }
+  .h3  { font-size: 1.15rem; font-weight: 700; }
   .sub { font-size: 1.05rem; color: var(--gray); line-height: 1.7; margin-top: 16px; }
   .micro { font-size: 12px; color: var(--gray); margin-top: 10px; }
 
-  em.green { font-style: normal; color: var(--green); }
-  em.red   { font-style: normal; color: var(--red); font-weight: 700; }
+  em.green  { font-style: normal; color: var(--green); }
+  em.red    { font-style: normal; color: var(--red); font-weight: 700; }
+  em.yellow { font-style: normal; color: var(--yellow); font-weight: 700; }
 
-  /* ===== CTA BUTTON ===== */
   .btn-primary {
-    display: inline-block;
-    background: var(--green);
-    color: #000;
-    font-weight: 800;
-    font-size: 1rem;
-    padding: 16px 36px;
-    border-radius: 6px;
-    text-decoration: none;
-    letter-spacing: 0.3px;
-    margin-top: 28px;
-    transition: opacity 0.2s;
-    cursor: default;
+    display: inline-block; background: var(--green); color: #000;
+    font-weight: 800; font-size: 1rem; padding: 16px 36px;
+    border-radius: 6px; text-decoration: none; margin-top: 28px; cursor: default;
   }
-  .btn-primary:hover { opacity: 0.85; }
-
   .btn-secondary {
-    display: inline-block;
-    color: var(--green);
-    font-weight: 600;
-    font-size: 0.95rem;
-    text-decoration: underline;
-    margin-top: 16px;
-    cursor: default;
+    display: inline-block; color: var(--green); font-weight: 600;
+    font-size: 0.95rem; text-decoration: underline; margin-top: 16px; cursor: default;
   }
 
-  /* ===== HERO ===== */
-  .hero {
-    background: var(--bg);
-    padding: 80px 0 60px;
-    border-bottom: 1px solid var(--gray-dim);
-  }
+  /* HERO */
+  .hero { background: var(--bg); padding: 80px 0 60px; border-bottom: 1px solid var(--gray-dim); }
   .hero .container { display: grid; grid-template-columns: 1fr 420px; gap: 60px; align-items: center; }
-  .hero-copy { }
   .hero-form {
-    background: var(--bg2);
-    border: 1px solid var(--gray-dim);
-    border-radius: 12px;
-    padding: 36px 32px;
+    background: var(--bg2); border: 1px solid var(--gray-dim);
+    border-radius: 12px; padding: 36px 32px;
   }
-  .hero-form h3 { font-size: 1.1rem; margin-bottom: 24px; }
+  .hero-form h3 { font-size: 1.1rem; margin-bottom: 8px; }
   .hero-form label { display: block; font-size: 12px; color: var(--gray); margin-bottom: 6px; font-weight: 600; }
   .hero-form input {
-    width: 100%;
-    background: var(--bg3);
-    border: 1px solid var(--gray-dim);
-    color: var(--white);
-    border-radius: 6px;
-    padding: 12px 14px;
-    font-size: 0.95rem;
-    font-family: var(--font);
-    margin-bottom: 16px;
-    outline: none;
+    width: 100%; background: var(--bg3); border: 1px solid var(--gray-dim);
+    color: var(--white); border-radius: 6px; padding: 12px 14px;
+    font-size: 0.95rem; font-family: var(--font); margin-bottom: 16px;
   }
-  .hero-form input:focus { border-color: var(--green); }
   .hero-form .btn-submit {
-    display: block;
-    width: 100%;
-    background: var(--green);
-    color: #000;
-    border: none;
-    font-weight: 800;
-    font-size: 1rem;
-    padding: 14px;
-    border-radius: 6px;
-    cursor: default;
-    font-family: var(--font);
+    display: block; width: 100%; background: var(--green); color: #000;
+    border: none; font-weight: 800; font-size: 1rem;
+    padding: 14px; border-radius: 6px; cursor: default; font-family: var(--font);
   }
-  .hero-form .micro { text-align: center; }
-  .hero-form .progress {
-    display: flex; gap: 4px; margin-bottom: 20px;
-  }
-  .hero-form .progress span {
-    flex: 1; height: 3px; background: var(--green); border-radius: 2px;
-  }
-  .hero-form .progress span:last-child { background: var(--gray-dim); }
+  .progress { display: flex; gap: 4px; margin-bottom: 20px; }
+  .progress span { flex: 1; height: 3px; background: var(--green); border-radius: 2px; }
+  .progress span:last-child { background: var(--gray-dim); }
 
-  /* ===== BENEFÍCIOS ===== */
-  .benefits-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-top: 36px;
+  /* FILTRO R$35 MIL */
+  .filter-block {
+    background: #04120A; border: 1px solid var(--green-dim);
+    border-left: 4px solid var(--green); border-radius: 0 10px 10px 0; padding: 36px 40px;
   }
+  .filter-headline { font-size: clamp(1.2rem, 2.5vw, 1.6rem); font-weight: 800; line-height: 1.3; margin-bottom: 20px; }
+  .filter-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 28px; }
+  .filter-card {
+    background: #071A0F; border: 1px solid var(--green-dim); border-radius: 8px; padding: 20px;
+  }
+  .filter-card .label { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+  .filter-card .value { font-size: 1.5rem; font-weight: 800; color: var(--white); line-height: 1; margin-bottom: 8px; }
+  .filter-card p { font-size: 0.82rem; color: var(--gray); line-height: 1.5; }
+  .filter-fonte { margin-top: 20px; font-size: 11px; color: var(--gray-dim); }
+  .filter-fonte a { color: var(--gray-dim); }
+
+  /* BENEFÍCIOS */
+  .benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 36px; }
   .benefit-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    background: var(--bg2);
-    border: 1px solid var(--gray-dim);
-    border-radius: 8px;
-    padding: 16px 18px;
+    display: flex; align-items: flex-start; gap: 12px;
+    background: var(--bg2); border: 1px solid var(--gray-dim); border-radius: 8px; padding: 16px 18px;
   }
-  .benefit-item .check {
-    color: var(--green);
-    font-weight: 800;
-    font-size: 1.1rem;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
+  .benefit-item .check { color: var(--green); font-weight: 800; font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
   .benefit-item p { font-size: 0.9rem; line-height: 1.5; color: #e0e0f0; }
 
-  /* ===== AUTORIDADE ===== */
-  .authority {
-    display: grid;
-    grid-template-columns: 260px 1fr;
-    gap: 60px;
-    align-items: start;
-  }
+  /* AUTORIDADE */
+  .authority { display: grid; grid-template-columns: 260px 1fr; gap: 60px; align-items: start; }
   .authority-photo {
-    background: var(--bg3);
-    border: 1px solid var(--gray-dim);
-    border-radius: 10px;
-    aspect-ratio: 3/4;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--gray);
-    font-size: 12px;
-    text-align: center;
-    padding: 20px;
-    position: relative;
-    overflow: hidden;
+    background: var(--bg3); border: 1px solid var(--gray-dim); border-radius: 10px;
+    aspect-ratio: 3/4; display: flex; flex-direction: column;
+    align-items: center; justify-content: space-between; padding: 20px; position: relative; overflow: hidden;
   }
   .authority-photo::before {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 40%;
-    background: linear-gradient(to top, var(--bg3), transparent);
+    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+    height: 40%; background: linear-gradient(to top, var(--bg3), transparent);
   }
+  .authority-photo .placeholder { font-size: 80px; opacity: 0.08; line-height: 1; }
   .authority-photo .photo-label {
-    position: relative; z-index: 1;
-    background: var(--bg2);
-    border: 1px solid var(--green-dim);
-    border-radius: 6px;
-    padding: 8px 14px;
-    color: var(--green);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-top: auto;
+    position: relative; z-index: 1; background: var(--bg2); border: 1px solid var(--green-dim);
+    border-radius: 6px; padding: 8px 14px; color: var(--green); font-size: 11px;
+    font-weight: 700; letter-spacing: 1px; text-transform: uppercase; text-align: center;
   }
-  .authority-photo { flex-direction: column; justify-content: space-between; }
-  .authority-photo .placeholder {
-    font-size: 80px;
-    opacity: 0.08;
-    line-height: 1;
-    align-self: center;
-  }
-  .credencial {
-    display: flex;
-    gap: 12px;
-    margin-top: 24px;
-    flex-wrap: wrap;
-  }
+  .credencial { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
   .credencial-item {
-    background: var(--bg3);
-    border: 1px solid var(--green-dim);
-    border-radius: 20px;
-    padding: 6px 16px;
-    font-size: 12px;
-    color: var(--green);
-    font-weight: 600;
+    background: var(--bg3); border: 1px solid var(--green-dim); border-radius: 20px;
+    padding: 6px 16px; font-size: 12px; color: var(--green); font-weight: 600;
   }
-  .parceria-badge {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--bg3);
-    border: 1px solid var(--gray-dim);
-    border-radius: 8px;
-    padding: 12px 16px;
-    margin-top: 24px;
-    font-size: 12px;
-    color: var(--gray);
-  }
-  .parceria-badge strong { color: var(--white); }
 
-  /* ===== OBJEÇÕES ===== */
-  .objection-list { margin-top: 36px; }
-  .objection-item {
-    border-bottom: 1px solid var(--gray-dim);
-    padding: 24px 0;
-  }
-  .objection-item:first-child { border-top: 1px solid var(--gray-dim); }
-  .objection-q {
-    font-size: 0.95rem;
-    color: var(--gray);
-    font-style: italic;
-    margin-bottom: 10px;
-  }
-  .objection-q::before { content: '"'; }
-  .objection-q::after  { content: '"'; }
-  .objection-a { font-size: 0.95rem; line-height: 1.65; }
+  /* FAQ */
+  .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 36px; }
+  .faq-item { background: var(--bg2); border: 1px solid var(--gray-dim); border-radius: 8px; padding: 20px 22px; }
+  .faq-item .q { font-weight: 700; font-size: 0.9rem; color: var(--white); margin-bottom: 8px; }
+  .faq-item .a { font-size: 0.88rem; color: var(--gray); line-height: 1.6; }
 
-  /* ===== FAQ ===== */
-  .faq-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    margin-top: 36px;
-  }
-  .faq-item {
-    background: var(--bg2);
-    border: 1px solid var(--gray-dim);
-    border-radius: 8px;
-    padding: 20px 22px;
-  }
-  .faq-item .q {
-    font-weight: 700;
-    font-size: 0.9rem;
-    color: var(--white);
-    margin-bottom: 8px;
-  }
-  .faq-item .a {
-    font-size: 0.88rem;
-    color: var(--gray);
-    line-height: 1.6;
-  }
-  .faq-item .a em.green { font-style: normal; color: var(--green); font-weight: 600; }
-
-  /* ===== URGÊNCIA BAR ===== */
-  .urgency-bar {
-    background: linear-gradient(90deg, #0A1810, #0A2010);
-    border: 1px solid var(--green-dim);
-    border-radius: 8px;
-    padding: 20px 28px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    margin: 48px 0;
-  }
-  .urgency-bar p { font-size: 0.95rem; color: #c0f0d8; }
-  .urgency-bar strong { color: var(--green); }
-
-  /* ===== SOCIAL PROOF ===== */
-  .proof-numbers {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-top: 36px;
-  }
+  /* NÚMEROS */
+  .proof-numbers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 36px; }
   .proof-item {
-    text-align: center;
-    padding: 28px 20px;
-    background: var(--bg2);
-    border: 1px solid var(--gray-dim);
-    border-radius: 8px;
+    text-align: center; padding: 28px 20px;
+    background: var(--bg2); border: 1px solid var(--gray-dim); border-radius: 8px;
   }
   .proof-number { font-size: 2.4rem; font-weight: 800; color: var(--green); line-height: 1; }
   .proof-desc   { font-size: 0.85rem; color: var(--gray); margin-top: 8px; line-height: 1.4; }
 
-  /* ===== THANK YOU PAGE ===== */
+  /* URGENCY */
+  .urgency-bar {
+    background: linear-gradient(90deg, #0A1810, #0A2010);
+    border: 1px solid var(--green-dim); border-radius: 8px;
+    padding: 20px 28px; display: flex;
+    align-items: center; justify-content: center; gap: 24px; margin: 48px 0;
+  }
+  .urgency-bar p { font-size: 0.95rem; color: #c0f0d8; }
+
+  /* THANK YOU */
   .ty-section {
-    border: 2px dashed var(--green-dim);
-    border-radius: 12px;
-    padding: 40px;
-    margin-top: 48px;
-    background: #050F09;
+    border: 2px dashed var(--green-dim); border-radius: 12px;
+    padding: 40px; margin-top: 48px; background: #050F09;
   }
-  .ty-section .wf-label { border-color: var(--green); }
   .ty-cta-secondary {
-    display: inline-block;
-    background: transparent;
-    border: 1px solid var(--green);
-    color: var(--green);
-    font-weight: 700;
-    font-size: 0.95rem;
-    padding: 13px 28px;
-    border-radius: 6px;
-    text-decoration: none;
-    margin-top: 20px;
-    cursor: default;
+    display: inline-block; background: transparent; border: 1px solid var(--green);
+    color: var(--green); font-weight: 700; font-size: 0.95rem;
+    padding: 13px 28px; border-radius: 6px; text-decoration: none; margin-top: 20px; cursor: default;
   }
 
-  /* ===== FOOTER ===== */
-  .footer {
-    padding: 40px 0;
-    border-top: 1px solid var(--gray-dim);
-    text-align: center;
-  }
-  .disclaimer {
-    font-size: 11px;
-    color: var(--gray-dim);
-    line-height: 1.6;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  /* ===== ANNOTATIONS ===== */
-  .annotation {
-    display: inline-block;
-    background: #1A0A00;
-    border: 1px solid #5C3A00;
-    border-radius: 4px;
-    color: #FFB347;
-    font-size: 10px;
-    font-weight: 700;
-    padding: 2px 8px;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    margin-left: 8px;
-    vertical-align: middle;
-  }
-
-  /* ===== MOBILE NOTE ===== */
-  .mobile-note {
-    background: var(--bg3);
-    border: 1px solid var(--gray-dim);
-    border-left: 3px solid var(--green);
-    border-radius: 0 6px 6px 0;
-    padding: 14px 20px;
-    margin-top: 60px;
-    font-size: 13px;
-    color: var(--gray);
-    line-height: 1.6;
-  }
-  .mobile-note strong { color: var(--white); }
-
-  /* ===== SECTION LABELS MAP ===== */
-  .section-map {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 60px;
-  }
-  .section-map a {
-    font-size: 11px;
-    color: var(--gray);
-    border: 1px solid var(--gray-dim);
-    border-radius: 16px;
-    padding: 4px 12px;
-    text-decoration: none;
-    transition: border-color 0.2s;
-  }
-  .section-map a:hover { border-color: var(--green); color: var(--green); }
+  /* FOOTER */
+  .footer { padding: 40px 0; border-top: 1px solid var(--gray-dim); text-align: center; }
+  .disclaimer { font-size: 11px; color: var(--gray-dim); line-height: 1.6; max-width: 600px; margin: 0 auto; }
 
   @media (max-width: 768px) {
-    .hero .container { grid-template-columns: 1fr; }
-    .benefits-grid   { grid-template-columns: 1fr; }
-    .authority       { grid-template-columns: 1fr; }
-    .faq-grid        { grid-template-columns: 1fr; }
-    .proof-numbers   { grid-template-columns: 1fr; }
-    .urgency-bar     { flex-direction: column; text-align: center; }
+    .hero .container  { grid-template-columns: 1fr; }
+    .benefits-grid    { grid-template-columns: 1fr; }
+    .authority        { grid-template-columns: 1fr; }
+    .faq-grid         { grid-template-columns: 1fr; }
+    .proof-numbers    { grid-template-columns: 1fr; }
+    .filter-grid      { grid-template-columns: 1fr; }
+    .filter-block     { padding: 24px 20px; }
+    .urgency-bar      { flex-direction: column; text-align: center; }
   }
 </style>
 </head>
 <body>
 
-<!-- ============================================================
-     BARRA DE NAVEGAÇÃO DO DOCUMENTO (apenas para referência)
-     ============================================================ -->
-<div style="background:#0D1020;border-bottom:1px solid #1A1A2E;padding:12px 24px;">
-  <div style="max-width:1060px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-    <div style="font-size:11px;color:#A0A0C0;font-weight:700;letter-spacing:1px;">
-      📄 LP WIREFRAME — <span style="color:#00B37E;">DECLARE CRIPTO × BOOST RESEARCH</span> | IR 2026 | v1.0
-    </div>
-    <div style="font-size:10px;color:#5A5A7A;">
-      Formato: HTML interativo · Produzido: 12/03/2026 · @sofia @rafa @vera @bruno
-    </div>
-  </div>
-</div>
-
-<!-- MAPA DE SEÇÕES -->
-<div style="background:#06060F;padding:16px 24px;border-bottom:1px solid #1A1A2E;">
-  <div class="container">
-    <div class="section-map">
-      <a href="#hero">① Hero + Form</a>
-      <a href="#beneficios">② Benefícios</a>
-      <a href="#autoridade">③ Autoridade</a>
-      <a href="#objections">④ Objeções</a>
-      <a href="#cta-mid">⑤ CTA Central</a>
-      <a href="#faq">⑥ FAQ</a>
-      <a href="#cta-final">⑦ CTA Final</a>
-      <a href="#thankyou">⑧ Página de Agradecimento</a>
-    </div>
-  </div>
-</div>
-
-
-<!-- ============================================================
-     ① HERO SECTION
-     ============================================================ -->
+<!-- HERO -->
 <section class="hero" id="hero">
   <div class="container">
 
-    <!-- COPY LADO ESQUERDO -->
     <div class="hero-copy">
-      <span class="wf-label">① hero — above the fold</span>
-      <div class="tag">Guia gratuito · Declare Cripto × Boost Research</div>
-
+      <div class="tag">E-book gratuito · Boost Research</div>
       <h1 class="h1">
         Tem cripto?<br>
         Saiba exatamente como<br>
         <em class="green">declarar no IR 2026</em><br>
         — sem erro, sem susto.
       </h1>
-
       <p class="sub">
-        Guia gratuito produzido pela <strong>Declare Cripto</strong> em parceria com a <strong>Boost Research</strong>.
-        Curadoria de <strong>André Franco</strong> — analista de criptoativos com mais de 10 anos de mercado.
+        E-book gratuito com curadoria de <strong>André Franco</strong> —
+        analista de criptoativos com mais de 10 anos de mercado.
         Linguagem de investidor, não de contador.
       </p>
-
       <div class="divider-green"></div>
-
       <p style="font-size:0.9rem;color:var(--gray);">
         Tudo que você precisa saber antes de abrir o programa da Receita —
-        o que declarar, como calcular ganho de capital, o que fazer com DeFi,
-        staking e exchanges internacionais.
+        o que declarar, como calcular ganho de capital, o que fazer com
+        DeFi, staking e exchanges internacionais.
       </p>
-
-      <!-- Trust signals inline -->
-      <div style="display:flex;gap:24px;margin-top:28px;flex-wrap:wrap;">
-        <div style="font-size:12px;color:var(--gray);display:flex;align-items:center;gap:6px;">
-          <span style="color:var(--green);">✓</span> 100% gratuito
-        </div>
-        <div style="font-size:12px;color:var(--gray);display:flex;align-items:center;gap:6px;">
-          <span style="color:var(--green);">✓</span> Sem spam
-        </div>
-        <div style="font-size:12px;color:var(--gray);display:flex;align-items:center;gap:6px;">
-          <span style="color:var(--green);">✓</span> Entrega imediata no e-mail
-        </div>
-        <div style="font-size:12px;color:var(--gray);display:flex;align-items:center;gap:6px;">
-          <span style="color:var(--green);">✓</span> Inclui DeFi, staking e exchanges internacionais
-        </div>
+      <div style="display:flex;gap:20px;margin-top:28px;flex-wrap:wrap;">
+        <span style="font-size:12px;color:var(--gray);display:flex;align-items:center;gap:6px;"><em class="green">✓</em> 100% gratuito</span>
+        <span style="font-size:12px;color:var(--gray);display:flex;align-items:center;gap:6px;"><em class="green">✓</em> Sem spam</span>
+        <span style="font-size:12px;color:var(--gray);display:flex;align-items:center;gap:6px;"><em class="green">✓</em> Entrega imediata no e-mail</span>
+        <span style="font-size:12px;color:var(--gray);display:flex;align-items:center;gap:6px;"><em class="green">✓</em> Inclui DeFi, staking e exchanges internacionais</span>
       </div>
     </div>
 
-    <!-- FORMULÁRIO LADO DIREITO -->
     <div class="hero-form">
-      <span class="annotation">form — above the fold</span>
-      <div class="progress">
-        <span></span><span></span><span style="background:var(--gray-dim);"></span>
-      </div>
-      <h3>Receba o guia agora</h3>
+      <div class="progress"><span></span><span></span><span style="background:var(--gray-dim);"></span></div>
+      <h3>Receba o e-book agora</h3>
       <p style="font-size:12px;color:var(--gray);margin-bottom:20px;">Preencha abaixo — você recebe o link em instantes.</p>
-
       <label>Seu nome</label>
       <input type="text" placeholder="Ex: João Silva">
-
       <label>Seu melhor e-mail</label>
       <input type="email" placeholder="joao@email.com">
-
-      <button class="btn-submit">Quero o guia gratuito →</button>
-
-      <p class="micro" style="text-align:center;margin-top:12px;">
-        🔒 Seus dados estão seguros. Sem spam.
-      </p>
-
-      <div class="divider-full" style="margin:20px 0;"></div>
+      <button class="btn-submit">Quero o e-book gratuito →</button>
+      <p class="micro" style="text-align:center;margin-top:12px;">🔒 Seus dados estão seguros. Sem spam.</p>
+      <div class="divider-full"></div>
       <p style="font-size:11px;color:var(--gray-dim);text-align:center;line-height:1.5;">
         Ao continuar, você concorda com nossa política de privacidade.
-        Seus dados são usados exclusivamente para envio do guia.
       </p>
     </div>
 
@@ -558,194 +236,139 @@
 </section>
 
 
-<!-- ============================================================
-     ② BENEFÍCIOS DO E-BOOK
-     ============================================================ -->
+<!-- FILTRO — R$35 MIL -->
+<section class="section section--dark" id="filtro">
+  <div class="container">
+    <div class="filter-block">
+      <p class="filter-headline">
+        Vendeu mais de <em class="green">R$35 mil</em> em cripto no mês?<br>
+        Entenda quando pode haver imposto e como declarar.
+      </p>
+      <p style="font-size:0.95rem;color:#c0f0d8;line-height:1.7;max-width:700px;">
+        No Brasil, existe uma <strong>isenção de ganho de capital</strong> para pessoa física:
+        se o total das suas vendas de cripto no mês ficar <strong>abaixo de R$35.000</strong>,
+        você não paga imposto — mesmo que tenha tido lucro.
+        Acima desse limite, o imposto incide apenas sobre o <strong>lucro apurado</strong>
+        (não sobre o valor total vendido).
+      </p>
+
+      <div class="filter-grid">
+        <div class="filter-card">
+          <div class="label">Limite de isenção</div>
+          <div class="value">R$35 mil</div>
+          <p>Em <strong>vendas brutas totais no mês</strong> — soma de todos os criptoativos vendidos. Não é sobre o lucro, é sobre o valor total vendido.</p>
+        </div>
+        <div class="filter-card">
+          <div class="label">Acima do limite</div>
+          <div class="value" style="color:var(--yellow);">15%</div>
+          <p>Alíquota sobre o <strong>lucro apurado</strong> (venda menos custo de aquisição). Pagamento via DARF código <strong>4600</strong> — até o último dia útil do mês seguinte.</p>
+        </div>
+        <div class="filter-card">
+          <div class="label">Válido em 2026</div>
+          <div class="value" style="font-size:1rem;padding-top:4px;color:var(--green);">MP 1.303<br>derrubada</div>
+          <p>A medida que tentava extinguir a isenção foi <strong>rejeitada pelo Congresso</strong> em outubro de 2025. A regra de R$35 mil segue válida.</p>
+        </div>
+      </div>
+
+      <p style="font-size:0.88rem;color:var(--gray);line-height:1.65;margin-top:24px;max-width:700px;">
+        <strong style="color:var(--white);">Exemplo prático:</strong>
+        Você vendeu R$40.000 em Bitcoin e pagou R$35.000 na compra.
+        Ultrapassou o limite → imposto incide sobre o <em class="green">lucro de R$5.000</em>
+        → imposto a pagar: R$750 (15% sobre o lucro).
+        Se tivesse vendido R$34.000, estaria isento — mesmo com lucro.
+      </p>
+
+      <p class="filter-fonte">
+        Base legal: Lei 9.250/1995 art. 22 · Lei 8.981/1995 art. 21 · IN RFB 1.888/2019 ·
+        <a href="https://blog.declarecripto.com.br" target="_blank">blog.declarecripto.com.br</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- BENEFÍCIOS -->
 <section class="section section--mid" id="beneficios">
   <div class="container">
-    <span class="wf-label">② benefícios — o que o guia cobre</span>
-
-    <h2 class="h2">O que você vai encontrar no guia</h2>
+    <h2 class="h2">O que você vai encontrar no e-book</h2>
     <p class="sub" style="max-width:560px;">8 tópicos cobertos com linguagem de investidor, exemplos práticos e checklist de declaração.</p>
 
     <div class="benefits-grid">
-      <div class="benefit-item">
-        <span class="check">✓</span>
-        <p>Como declarar Bitcoin, altcoins e stablecoins na <strong>ficha de Bens e Direitos</strong></p>
-      </div>
-      <div class="benefit-item">
-        <span class="check">✓</span>
-        <p>Quando e como pagar <strong>ganho de capital</strong> — inclusive o cálculo de custo médio</p>
-      </div>
-      <div class="benefit-item">
-        <span class="check">✓</span>
-        <p>O que fazer com <strong>rendimento de staking e DeFi</strong> — campo correto no programa</p>
-      </div>
-      <div class="benefit-item">
-        <span class="check">✓</span>
-        <p>Como declarar cripto em <strong>exchanges internacionais</strong> (Binance, Coinbase, Kraken)</p>
-      </div>
-      <div class="benefit-item">
-        <span class="check">✓</span>
-        <p>Como <strong>registrar perdas</strong> e usar a compensação com ganhos futuros</p>
-      </div>
-      <div class="benefit-item">
-        <span class="check">✓</span>
-        <p>Passo a passo do <strong>preenchimento no programa da Receita Federal</strong></p>
-      </div>
-      <div class="benefit-item">
-        <span class="check">✓</span>
-        <p>Os <em class="green">erros mais comuns</em> que levam à malha fina — e como evitá-los</p>
-      </div>
-      <div class="benefit-item">
-        <span class="check">✓</span>
-        <p>O que <strong>muda em 2026</strong> em relação ao ano anterior — novas exigências</p>
-      </div>
+      <div class="benefit-item"><span class="check">✓</span><p>Como declarar Bitcoin, altcoins e stablecoins na <strong>ficha de Bens e Direitos</strong></p></div>
+      <div class="benefit-item"><span class="check">✓</span><p>Quando e como pagar <strong>ganho de capital</strong> — inclusive o cálculo de custo médio</p></div>
+      <div class="benefit-item"><span class="check">✓</span><p>O que fazer com <strong>rendimento de staking e DeFi</strong> — campo correto no programa</p></div>
+      <div class="benefit-item"><span class="check">✓</span><p>Como declarar cripto em <strong>exchanges internacionais</strong> (Binance, Coinbase, Kraken)</p></div>
+      <div class="benefit-item"><span class="check">✓</span><p>Como <strong>registrar perdas</strong> e usar a compensação com ganhos futuros</p></div>
+      <div class="benefit-item"><span class="check">✓</span><p>Passo a passo do <strong>preenchimento no programa da Receita Federal</strong></p></div>
+      <div class="benefit-item"><span class="check">✓</span><p>Os <em class="green">erros mais comuns</em> que levam à malha fina — e como evitá-los</p></div>
+      <div class="benefit-item"><span class="check">✓</span><p>O que <strong>muda em 2026</strong> em relação ao ano anterior — novas exigências</p></div>
     </div>
 
     <div style="text-align:center;margin-top:44px;">
-      <a href="#" class="btn-primary">Baixar o guia gratuito</a>
+      <a href="#" class="btn-primary">Baixar o e-book gratuito</a>
       <p class="micro" style="text-align:center;margin-top:8px;">Gratuito. Sem spam. Entrega imediata.</p>
     </div>
   </div>
 </section>
 
 
-<!-- ============================================================
-     ③ BLOCO DE AUTORIDADE
-     ============================================================ -->
+<!-- AUTORIDADE -->
 <section class="section section--dark" id="autoridade">
   <div class="container">
-    <span class="wf-label">③ autoridade — quem preparou este guia</span>
-
     <div class="authority">
-
-      <!-- FOTO PLACEHOLDER -->
       <div>
         <div class="authority-photo">
           <span class="placeholder">👤</span>
-          <div class="photo-label">Foto editorial André Franco</div>
+          <div class="photo-label">Foto editorial<br>André Franco</div>
         </div>
         <div class="credencial">
           <span class="credencial-item">+10 anos em cripto</span>
           <span class="credencial-item">Boost Research</span>
         </div>
       </div>
-
-      <!-- COPY AUTORIDADE -->
       <div>
-        <h2 class="h2">Quem preparou este guia</h2>
+        <h2 class="h2">Quem preparou este e-book</h2>
         <div class="divider-green"></div>
-
         <p style="font-size:1rem;color:#e0e0f0;line-height:1.75;margin-bottom:20px;">
-          Este guia é uma iniciativa da <strong style="color:var(--green);">Declare Cripto</strong>,
-          produzido em parceria com a <strong>Boost Research</strong> —
+          Este e-book foi produzido pela <strong>Boost Research</strong> —
           research house especializada em criptoativos para investidores que tratam
           o ativo com o mesmo rigor que aplicam no restante do patrimônio.
         </p>
         <p style="font-size:1rem;color:#e0e0f0;line-height:1.75;margin-bottom:20px;">
           A curadoria é de <strong>André Franco</strong>, analista de criptoativos há mais de 10 anos.
-          Neste guia, André traduz as obrigações fiscais sobre cripto com linguagem de investidor —
+          Neste e-book, André traduz as obrigações fiscais sobre cripto com linguagem de investidor —
           sem juridiquês, sem generalização, com os casos reais que o investidor brasileiro enfrenta.
         </p>
         <p style="font-size:0.95rem;color:var(--gray);line-height:1.65;">
           Não é conteúdo de contador que nunca comprou um satoshi.
           É orientação de quem entende o ativo de ponta a ponta — inclusive na hora de declará-lo.
         </p>
-
-        <div class="parceria-badge">
-          <span style="color:var(--green);font-size:16px;">🤝</span>
-          <div>
-            Iniciativa: <strong>Declare Cripto</strong> &nbsp;×&nbsp; <strong>Boost Research</strong><br>
-            <span style="color:var(--gray-dim);">Curadoria: André Franco · Research house · Análise institucional de criptoativos</span>
-          </div>
-        </div>
-
-        <a href="#" class="btn-primary" style="margin-top:32px;">Quero o guia gratuito →</a>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-<!-- ============================================================
-     ④ BLOCO DE OBJEÇÕES
-     ============================================================ -->
-<section class="section section--mid" id="objections">
-  <div class="container" style="max-width:720px;">
-    <span class="wf-label">④ objeções — respostas diretas</span>
-
-    <h2 class="h2">Respostas diretas para quem ainda está em dúvida</h2>
-
-    <div class="objection-list">
-      <div class="objection-item">
-        <p class="objection-q">Tenho pouca cripto — preciso mesmo declarar?</p>
-        <p class="objection-a">
-          Sim. Qualquer cripto com valor superior a <em class="green">R$5 mil em 31/12</em> precisa ser declarada
-          em Bens e Direitos — independente de ter vendido ou não. O valor que importa é o da posse, não da venda.
-        </p>
-      </div>
-      <div class="objection-item">
-        <p class="objection-q">Meu contador já cuida disso.</p>
-        <p class="objection-a">
-          Ótimo. Este guia te deixa preparado para chegar ao contador com as informações corretas —
-          e economiza tempo e honorário no processo. Quanto mais organizado você chegar, menos horas o contador gasta.
-        </p>
-      </div>
-      <div class="objection-item">
-        <p class="objection-q">E-book gratuito não tem profundidade.</p>
-        <p class="objection-a">
-          Veja o sumário. Cobrimos desde ganho de capital até DeFi, staking e exchanges internacionais —
-          com exemplos práticos para cada situação. É mais específico que a maioria dos conteúdos pagos no mercado.
-        </p>
-      </div>
-      <div class="objection-item">
-        <p class="objection-q">Já vi muito conteúdo sobre IR e cripto.</p>
-        <p class="objection-a">
-          A diferença está em quem fala. A maioria dos conteúdos vem de contadores que não conhecem o ativo —
-          ou de criadores de conteúdo sem rigor técnico. Este guia vem de quem analisa o mercado cripto profissionalmente há +10 anos.
-        </p>
+        <a href="#" class="btn-primary" style="margin-top:32px;">Quero o e-book gratuito →</a>
       </div>
     </div>
   </div>
 </section>
 
 
-<!-- ============================================================
-     ⑤ CTA CENTRAL (REPETIÇÃO)
-     ============================================================ -->
+<!-- CTA CENTRAL -->
 <section class="section section--card" id="cta-mid">
   <div class="container" style="text-align:center;max-width:640px;">
-    <span class="wf-label">⑤ cta central — repetição após autoridade</span>
-
-    <div class="urgency-bar" style="margin:0 0 36px;justify-content:center;flex-direction:column;text-align:center;">
+    <div class="urgency-bar" style="margin:0 0 36px;">
       <p>⏱ <strong>O prazo da Receita Federal abre em abril.</strong> Quanto mais cedo você organizar, menos estresse.</p>
     </div>
-
     <h2 class="h2">Pronto para entrar na declaração preparado?</h2>
     <p class="sub">Baixe agora — é gratuito, direto ao ponto, sem juridiquês.</p>
-
-    <a href="#" class="btn-primary" style="font-size:1.05rem;padding:18px 44px;">
-      Baixar o guia gratuito agora
-    </a>
+    <a href="#" class="btn-primary" style="font-size:1.05rem;padding:18px 44px;">Baixar o e-book gratuito agora</a>
     <br>
     <a href="#" class="btn-secondary">Já tenho cripto e quero entrar preparado na declaração →</a>
-
-    <p class="micro" style="text-align:center;margin-top:16px;">
-      🔒 Seus dados estão protegidos. Você recebe o guia no e-mail em instantes.
-    </p>
+    <p class="micro" style="text-align:center;margin-top:16px;">🔒 Seus dados estão protegidos. Você recebe o e-book no e-mail em instantes.</p>
   </div>
 </section>
 
 
-<!-- ============================================================
-     PROVA SOCIAL / NÚMEROS
-     ============================================================ -->
+<!-- PROVA SOCIAL -->
 <section class="section section--dark">
   <div class="container">
-    <span class="wf-label">prova social — dados de contexto</span>
-
     <div class="proof-numbers">
       <div class="proof-item">
         <div class="proof-number">5º</div>
@@ -764,15 +387,10 @@
 </section>
 
 
-<!-- ============================================================
-     ⑥ FAQ
-     ============================================================ -->
+<!-- FAQ -->
 <section class="section section--mid" id="faq">
   <div class="container">
-    <span class="wf-label">⑥ faq — 6 perguntas frequentes</span>
-
     <h2 class="h2">Perguntas frequentes</h2>
-
     <div class="faq-grid">
       <div class="faq-item">
         <p class="q">Preciso declarar se não vendi nada?</p>
@@ -780,11 +398,11 @@
       </div>
       <div class="faq-item">
         <p class="q">Onde declaro cripto no programa da Receita?</p>
-        <p class="a">Na ficha de <em class="green">Bens e Direitos, grupo 08</em> — Criptoativos. Para cada tipo de cripto, existe um código específico. O guia traz a tabela completa.</p>
+        <p class="a">Na ficha de <em class="green">Bens e Direitos, grupo 08</em> — Criptoativos. Para cada tipo de cripto, existe um código específico. O e-book traz a tabela completa.</p>
       </div>
       <div class="faq-item">
         <p class="q">Como calculo o ganho de capital se comprei em parcelas?</p>
-        <p class="a">Pelo <em class="green">custo médio ponderado</em>. O guia tem uma fórmula simples e um exemplo prático passo a passo — sem precisar de planilha complexa.</p>
+        <p class="a">Pelo <em class="green">custo médio ponderado</em>. O e-book tem uma fórmula simples e um exemplo prático passo a passo — sem precisar de planilha complexa.</p>
       </div>
       <div class="faq-item">
         <p class="q">Tenho cripto na Binance — precisa declarar?</p>
@@ -792,64 +410,42 @@
       </div>
       <div class="faq-item">
         <p class="q">Tive prejuízo em 2025. O que faço?</p>
-        <p class="a">Perdas em cripto podem ser <em class="green">compensadas com ganhos futuros</em> — mas precisam ser registradas corretamente na época em que ocorreram. O guia explica como.</p>
+        <p class="a">Perdas em cripto podem ser <em class="green">compensadas com ganhos futuros</em> — mas precisam ser registradas na época em que ocorreram. O e-book explica como.</p>
       </div>
       <div class="faq-item">
-        <p class="q">O guia serve para 2026 (declaração de 2025)?</p>
-        <p class="a">Sim. O guia é específico para a <em class="green">declaração do exercício 2026</em>, referente ao ano-calendário 2025 — com todas as atualizações pertinentes.</p>
+        <p class="q">O e-book serve para 2026 (declaração de 2025)?</p>
+        <p class="a">Sim. O e-book é específico para a <em class="green">declaração do exercício 2026</em>, referente ao ano-calendário 2025 — com todas as atualizações pertinentes.</p>
       </div>
     </div>
   </div>
 </section>
 
 
-<!-- ============================================================
-     ⑦ CTA FINAL
-     ============================================================ -->
+<!-- CTA FINAL -->
 <section class="section section--dark" id="cta-final">
   <div class="container" style="text-align:center;max-width:600px;">
-    <span class="wf-label">⑦ cta final — fechamento</span>
-
     <h2 class="h2">Declare cripto com método.<br>Como você já investe.</h2>
-    <p class="sub">
-      Gestão de ponta a ponta — da análise de entrada até a declaração no imposto de renda.
-      O guia fecha esse ciclo. Gratuito.
-    </p>
-
-    <a href="#" class="btn-primary" style="font-size:1.05rem;padding:18px 44px;margin-top:36px;">
-      Baixar o guia gratuito agora
-    </a>
-
-    <p class="micro" style="text-align:center;margin-top:12px;">
-      Declare Cripto × Boost Research · Curadoria: André Franco
-    </p>
+    <p class="sub">Gestão de ponta a ponta — da análise de entrada até a declaração no imposto de renda. O e-book fecha esse ciclo. Gratuito.</p>
+    <a href="#" class="btn-primary" style="font-size:1.05rem;padding:18px 44px;margin-top:36px;">Baixar o e-book gratuito agora</a>
+    <p class="micro" style="text-align:center;margin-top:12px;">Boost Research · Curadoria: André Franco</p>
   </div>
 </section>
 
 
-<!-- ============================================================
-     ⑧ PÁGINA DE AGRADECIMENTO (seção separada do fluxo principal)
-     ============================================================ -->
+<!-- PÁGINA DE AGRADECIMENTO -->
 <section class="section section--mid" id="thankyou">
   <div class="container" style="max-width:680px;">
-    <span class="wf-label">⑧ página de agradecimento — pós-conversão</span>
-    <p style="font-size:11px;color:var(--gray);margin-bottom:24px;">
-      ⚠️ Esta seção é uma página separada — abre após o preenchimento do formulário. Exibida aqui para referência de layout.
+    <p style="font-size:11px;color:var(--gray-dim);margin-bottom:24px;border:1px dashed var(--gray-dim);border-radius:6px;padding:10px 14px;">
+      ⚠️ Página separada — abre após o preenchimento do formulário.
     </p>
-
     <div class="ty-section">
-      <span class="wf-label">obrigado.html</span>
-
       <div style="font-size:2.5rem;margin-bottom:20px;">✅</div>
-
-      <h2 class="h2">Pronto — o guia está a caminho do seu e-mail.</h2>
+      <h2 class="h2">Pronto — o e-book está a caminho do seu e-mail.</h2>
       <div class="divider-green"></div>
-
       <p style="font-size:1rem;color:#e0e0f0;line-height:1.75;margin-bottom:24px;">
         Em alguns minutos você recebe o link de acesso.
         Verifique sua caixa de entrada — e a pasta de spam, caso não apareça.
       </p>
-
       <div style="background:var(--bg2);border:1px solid var(--gray-dim);border-radius:8px;padding:24px;margin-top:24px;">
         <h3 class="h3" style="margin-bottom:12px;">Enquanto isso, uma coisa:</h3>
         <p style="font-size:0.95rem;color:#e0e0f0;line-height:1.7;">
@@ -865,88 +461,15 @@
 </section>
 
 
-<!-- ============================================================
-     NOTAS DE UX / CRO
-     ============================================================ -->
-<section class="section section--dark">
-  <div class="container">
-    <span class="wf-label">notas de ux & cro — @bruno @rafa @sofia</span>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px;">
-      <div style="background:var(--bg2);border:1px solid var(--gray-dim);border-radius:8px;padding:20px 22px;">
-        <h3 class="h3" style="color:var(--green);margin-bottom:12px;">✓ Implementar</h3>
-        <ul style="font-size:0.88rem;color:var(--gray);line-height:1.8;list-style:none;padding:0;">
-          <li>• Hero com formulário <strong style="color:var(--white);">acima da dobra</strong> — reduz cliques</li>
-          <li>• CTA repetido <strong style="color:var(--white);">3 vezes</strong>: hero, após benefícios, após autoridade</li>
-          <li>• Foto do André no hero à <strong style="color:var(--white);">direita</strong>, copy à esquerda (padrão F)</li>
-          <li>• Progress bar no formulário — mesmo com 2 campos, aumenta preenchimento</li>
-          <li>• <strong style="color:var(--white);">Página de agradecimento</strong> com CTA secundário para advisory</li>
-          <li>• Microcopy de segurança abaixo do botão principal</li>
-        </ul>
-      </div>
-      <div style="background:var(--bg2);border:1px solid var(--gray-dim);border-radius:8px;padding:20px 22px;">
-        <h3 class="h3" style="color:#FFB347;margin-bottom:12px;">📱 Mobile</h3>
-        <ul style="font-size:0.88rem;color:var(--gray);line-height:1.8;list-style:none;padding:0;">
-          <li>• Headline reduzido para <strong style="color:var(--white);">1 linha máximo</strong> em telas ≤ 375px</li>
-          <li>• Foto do André cortada no <strong style="color:var(--white);">busto</strong> no mobile</li>
-          <li>• CTA <strong style="color:var(--white);">full-width</strong> em mobile — mínimo 48px de altura</li>
-          <li>• Formulário move para <strong style="color:var(--white);">abaixo do hero copy</strong> no mobile</li>
-          <li>• Benefits grid: <strong style="color:var(--white);">coluna única</strong> no mobile</li>
-          <li>• FAQ: <strong style="color:var(--white);">accordion</strong> no mobile (uma pergunta por vez)</li>
-        </ul>
-      </div>
-      <div style="background:var(--bg2);border:1px solid var(--gray-dim);border-radius:8px;padding:20px 22px;">
-        <h3 class="h3" style="color:var(--green);margin-bottom:12px;">🎨 Visual</h3>
-        <ul style="font-size:0.88rem;color:var(--gray);line-height:1.8;list-style:none;padding:0;">
-          <li>• Fundo: <strong style="color:var(--white);">#000000 / #0A0A14</strong> (alternados)</li>
-          <li>• Texto: <strong style="color:var(--white);">#FFFFFF</strong> e <strong style="color:#A0A0C0;">#A0A0C0</strong> (suporte)</li>
-          <li>• Acento: <strong style="color:var(--green);">#00B37E</strong> — checks, CTAs, destaques</li>
-          <li>• Alerta: <strong style="color:var(--red);">#FF4444</strong> — dado 75% apenas</li>
-          <li>• Tipografia: <strong style="color:var(--white);">Inter Black / Inter Regular</strong></li>
-          <li>• Logo Declare Cripto + Logo Boost Research — header e footer</li>
-        </ul>
-      </div>
-      <div style="background:var(--bg2);border:1px solid var(--gray-dim);border-radius:8px;padding:20px 22px;">
-        <h3 class="h3" style="color:#A0C4FF;margin-bottom:12px;">📊 Métricas-alvo</h3>
-        <ul style="font-size:0.88rem;color:var(--gray);line-height:1.8;list-style:none;padding:0;">
-          <li>• Taxa de conversão LP: <strong style="color:var(--white);">≥ 30%</strong></li>
-          <li>• Abaixo de 15% → revisar urgente (@bruno)</li>
-          <li>• CPL e-book alvo: <strong style="color:var(--white);">R$15–35</strong></li>
-          <li>• CPL advisory (pós-ty): <strong style="color:var(--white);">R$40–60</strong></li>
-          <li>• Fonte UTM obrigatória em todos os criativos</li>
-          <li>• Pixel Meta + CAPI configurados antes do go-live</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="mobile-note" style="max-width:680px;">
-      <strong>Nota para desenvolvimento (@rafa @sofia):</strong>
-      Este HTML é o wireframe de referência para o layout e hierarquia de conteúdo.
-      Usar como base para o Figma antes de subir no Webflow/Next.js.
-      Todos os textos, CTAs e copies estão finalizados e aprovados — não alterar sem validação de @vera.
-      Fontes: carregar Inter via Google Fonts ou Fontsource.
-    </div>
-  </div>
-</section>
-
-
-<!-- ============================================================
-     FOOTER
-     ============================================================ -->
+<!-- FOOTER -->
 <footer class="footer">
   <div class="container">
-    <div style="display:flex;align-items:center;justify-content:center;gap:20px;margin-bottom:20px;flex-wrap:wrap;">
-      <span style="font-size:14px;font-weight:700;color:var(--green);">Declare Cripto</span>
-      <span style="color:var(--gray-dim);">×</span>
-      <span style="font-size:14px;font-weight:700;color:var(--white);">Boost Research</span>
-    </div>
+    <p style="font-size:16px;font-weight:700;color:var(--white);margin-bottom:16px;">Boost Research</p>
     <p class="disclaimer">
       Conteúdo informativo. Não é recomendação de investimento.
-      As informações deste guia têm caráter educativo e não substituem a orientação de um profissional contábil
-      para situações específicas. Declare Cripto em parceria com Boost Research · 2026.
-    </p>
-    <p style="font-size:10px;color:var(--gray-dim);margin-top:16px;">
-      Documento interno de produção · v1.0 · 12/03/2026 · @vera @sofia @rafa @bruno
+      As informações deste e-book têm caráter educativo e não substituem a orientação
+      de um profissional contábil para situações específicas.
+      Boost Research · 2026.
     </p>
   </div>
 </footer>
