@@ -271,66 +271,80 @@ def generate_html(d):
         adset_rows = ""
         for ads in c["adsets"]:
             status_dot = "🟢" if ads["status"] == "ACTIVE" else "⏸"
-            adset_rows += f"""
-            <tr>
-              <td>{status_dot} {ads['name'][:40]}</td>
-              <td>{brl(ads['spend'])}</td>
-              <td>{ads['leads']}</td>
-              <td class="cpl-cell {cpl_class(ads['cpl'])}">{brl(ads['cpl']) if ads['cpl'] > 0 else '—'}</td>
-              <td class="{ctr_class(ads['ctr'])}">{ads['ctr']}%</td>
-              <td class="{freq_class(ads['freq'])}">{ads['freq'] if ads['freq'] > 0 else '—'}</td>
-              <td class="{hook_class(ads['hook'])}">{ads['hook']}% {'⚠️' if 0 < ads['hook'] < 20 else ''}</td>
-            </tr>"""
+            hook_warn  = "⚠️" if 0 < ads["hook"] < 20 else ""
+            cpl_val    = brl(ads["cpl"]) if ads["cpl"] > 0 else "—"
+            freq_val   = str(ads["freq"]) if ads["freq"] > 0 else "—"
+            adset_rows += (
+                "<tr>"
+                f"<td>{status_dot} {ads['name'][:40]}</td>"
+                f"<td>{brl(ads['spend'])}</td>"
+                f"<td>{ads['leads']}</td>"
+                f'<td class="cpl-cell {cpl_class(ads["cpl"])}">{cpl_val}</td>'
+                f'<td class="{ctr_class(ads["ctr"])}">{ads["ctr"]}%</td>'
+                f'<td class="{freq_class(ads["freq"])}">{freq_val}</td>'
+                f'<td class="{hook_class(ads["hook"])}">{ads["hook"]}% {hook_warn}</td>'
+                "</tr>"
+            )
 
-        camp_cards += f"""
-        <div class="camp-card">
-          <div class="camp-header">
-            <div>
-              <span class="funil-badge" style="background:{fc}20;color:{fc};">{c['funil']}</span>
-              <span class="camp-name">{c['nome']}</span>
-            </div>
-            <div class="camp-budget-info">{brl(c['budget'])}/mês · {c['budget_pct']}% do total</div>
-          </div>
+        # Adset section pré-computada (evita f-string aninhado)
+        if not c["adsets"]:
+            adset_section = '<div class="no-adset-data">Sem dados de conjuntos ainda</div>'
+        else:
+            adset_section = (
+                '<div class="adset-table-wrap">'
+                '<table class="adset-table">'
+                "<thead><tr>"
+                "<th>Conjunto</th><th>Gasto</th><th>Leads</th>"
+                "<th>CPL</th><th>CTR</th><th>Freq</th><th>Hook Rate</th>"
+                "</tr></thead>"
+                f"<tbody>{adset_rows}</tbody>"
+                "</table></div>"
+            )
 
-          <div class="camp-kpis">
-            <div class="ckpi">
-              <div class="ckpi-label">Gasto</div>
-              <div class="ckpi-val">{brl(c['spend'])}</div>
-              <div class="ckpi-sub">de {brl(c['budget'])} · {spend_pct}%</div>
-              <div class="mini-bar-wrap"><div class="mini-bar" style="width:{min(spend_pct,100)}%;background:{fc};"></div></div>
-            </div>
-            <div class="ckpi">
-              <div class="ckpi-label">Leads</div>
-              <div class="ckpi-val">{c['leads']}</div>
-              <div class="ckpi-sub">{c['clicks']:,} cliques</div>
-            </div>
-            <div class="ckpi {'ckpi-accent' if 0 < c['cpl'] <= CPL_OK else ''}">
-              <div class="ckpi-label">CPL</div>
-              <div class="ckpi-val {cpl_c}">{brl(c['cpl']) if c['cpl'] > 0 else '—'}</div>
-              <div class="ckpi-sub">meta: {brl(CPL_OK)}</div>
-            </div>
-            <div class="ckpi">
-              <div class="ckpi-label">CTR</div>
-              <div class="ckpi-val {ctr_class(c['ctr'])}">{c['ctr']}%</div>
-              <div class="ckpi-sub">meta feed: {CTR_FEED_OK}%</div>
-            </div>
-            <div class="ckpi">
-              <div class="ckpi-label">Frequência</div>
-              <div class="ckpi-val {freq_c}">{c['freq'] if c['freq'] > 0 else '—'}</div>
-              <div class="ckpi-sub">corte: {FREQ_CORTE}</div>
-            </div>
-          </div>
+        cpl_accent = "ckpi-accent" if 0 < c["cpl"] <= CPL_OK else ""
+        cpl_val_c  = brl(c["cpl"]) if c["cpl"] > 0 else "—"
+        freq_val_c = str(c["freq"]) if c["freq"] > 0 else "—"
 
-          {'<div class="no-adset-data">Sem dados de conjuntos ainda</div>' if not c["adsets"] else f"""
-          <div class="adset-table-wrap">
-            <table class="adset-table">
-              <thead>
-                <tr><th>Conjunto</th><th>Gasto</th><th>Leads</th><th>CPL</th><th>CTR</th><th>Freq</th><th>Hook Rate</th></tr>
-              </thead>
-              <tbody>{adset_rows}</tbody>
-            </table>
-          </div>"""}
-        </div>"""
+        camp_cards += (
+            '<div class="camp-card">'
+            '<div class="camp-header">'
+            "<div>"
+            f'<span class="funil-badge" style="background:{fc}20;color:{fc};">{c["funil"]}</span>'
+            f'<span class="camp-name">{c["nome"]}</span>'
+            "</div>"
+            f'<div class="camp-budget-info">{brl(c["budget"])}/mês · {c["budget_pct"]}% do total</div>'
+            "</div>"
+            '<div class="camp-kpis">'
+            '<div class="ckpi">'
+            '<div class="ckpi-label">Gasto</div>'
+            f'<div class="ckpi-val">{brl(c["spend"])}</div>'
+            f'<div class="ckpi-sub">de {brl(c["budget"])} · {spend_pct}%</div>'
+            f'<div class="mini-bar-wrap"><div class="mini-bar" style="width:{min(spend_pct,100)}%;background:{fc};"></div></div>'
+            "</div>"
+            '<div class="ckpi">'
+            '<div class="ckpi-label">Leads</div>'
+            f'<div class="ckpi-val">{c["leads"]}</div>'
+            f'<div class="ckpi-sub">{c["clicks"]:,} cliques</div>'
+            "</div>"
+            f'<div class="ckpi {cpl_accent}">'
+            '<div class="ckpi-label">CPL</div>'
+            f'<div class="ckpi-val {cpl_c}">{cpl_val_c}</div>'
+            f'<div class="ckpi-sub">meta: {brl(CPL_OK)}</div>'
+            "</div>"
+            '<div class="ckpi">'
+            '<div class="ckpi-label">CTR</div>'
+            f'<div class="ckpi-val {ctr_class(c["ctr"])}">{c["ctr"]}%</div>'
+            f'<div class="ckpi-sub">meta feed: {CTR_FEED_OK}%</div>'
+            "</div>"
+            '<div class="ckpi">'
+            '<div class="ckpi-label">Frequência</div>'
+            f'<div class="ckpi-val {freq_c}">{freq_val_c}</div>'
+            f'<div class="ckpi-sub">corte: {FREQ_CORTE}</div>'
+            "</div>"
+            "</div>"
+            f"{adset_section}"
+            "</div>"
+        )
 
     # Semáforo de benchmarks
     semaforo_items = [
