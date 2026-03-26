@@ -106,13 +106,7 @@ body {
 
 @media (max-width: 768px) { .container { padding: 0 24px; } }
 
-/* ── REVEAL ANIMATION ── */
-.reveal {
-  opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
-}
-.reveal.visible { opacity: 1; transform: translateY(0); }
+/* ── Reveal base — sobrescrito no bloco PREMIUM ANIMATIONS abaixo ── */
 .reveal-d1 { transition-delay: 0.1s; }
 .reveal-d2 { transition-delay: 0.2s; }
 .reveal-d3 { transition-delay: 0.3s; }
@@ -378,7 +372,7 @@ body {
   background: var(--bg);
 }
 .stats-bar .container {
-  display: grid; grid-template-columns: repeat(3, 1fr);
+  display: grid; grid-template-columns: repeat(2, 1fr);
 }
 .stat-cell {
   padding: 40px 48px;
@@ -771,13 +765,195 @@ body {
 }
 
 /* ════════════════════════════════
-   RESPONSIVE
+   PREMIUM ANIMATIONS
    ════════════════════════════════ */
+
+/* ── Orbs de brilho ambiente no hero ── */
+@keyframes orb-drift {
+  0%   { transform: translate(0, 0) scale(1); }
+  25%  { transform: translate(40px, -30px) scale(1.12); }
+  50%  { transform: translate(-20px, 40px) scale(0.92); }
+  75%  { transform: translate(30px, 20px) scale(1.06); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+@keyframes orb-drift-r {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(-50px, 30px) scale(1.08); }
+  66%  { transform: translate(25px, -40px) scale(0.94); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+.hero-orb {
+  position: absolute; pointer-events: none; border-radius: 50%;
+  filter: blur(80px);
+}
+.hero-orb-1 {
+  width: 480px; height: 480px;
+  top: -120px; left: -100px;
+  background: radial-gradient(circle, rgba(0,179,126,0.12) 0%, transparent 70%);
+  animation: orb-drift 18s ease-in-out infinite;
+}
+.hero-orb-2 {
+  width: 360px; height: 360px;
+  bottom: -80px; right: -60px;
+  background: radial-gradient(circle, rgba(0,179,126,0.08) 0%, transparent 70%);
+  animation: orb-drift-r 24s ease-in-out infinite;
+  animation-delay: -8s;
+}
+.hero-orb-3 {
+  width: 240px; height: 240px;
+  top: 50%; left: 40%;
+  background: radial-gradient(circle, rgba(0,179,126,0.06) 0%, transparent 70%);
+  animation: orb-drift 30s ease-in-out infinite;
+  animation-delay: -15s;
+}
+
+/* ── Cursor glow ── */
+#cursor-glow {
+  position: fixed; top: 0; left: 0;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,179,126,0.06) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+  transform: translate(-200px, -200px);
+  transition: transform 0.08s linear;
+  mix-blend-mode: screen;
+}
+
+/* ── Hero H1 word reveal ── */
+@keyframes word-up {
+  0%   { opacity: 0; transform: translateY(28px) skewY(2deg); }
+  100% { opacity: 1; transform: translateY(0) skewY(0deg); }
+}
+.hero-h1 .w {
+  display: inline-block;
+  opacity: 0;
+  animation: word-up 0.7s var(--ease-swoop) forwards;
+}
+
+/* ── Ticker ── */
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.ticker-strip {
+  background: var(--bg-2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  overflow: hidden; white-space: nowrap;
+  padding: 12px 0;
+}
+.ticker-track {
+  display: inline-block;
+  animation: ticker-scroll 28s linear infinite;
+}
+.ticker-track:hover { animation-play-state: paused; }
+.ticker-item {
+  display: inline-block;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--gray-2); padding: 0 40px;
+}
+.ticker-item .t-dot {
+  display: inline-block; width: 4px; height: 4px;
+  background: var(--green); border-radius: 50%;
+  vertical-align: middle; margin-right: 40px;
+}
+
+/* ── Blink pulsing dot ── */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+.live-dot {
+  display: inline-block; width: 6px; height: 6px;
+  background: var(--green); border-radius: 50%;
+  vertical-align: middle; margin-right: 6px;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* ── Enhanced reveal (scale + translateY) ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px) scale(0.98);
+  transition: opacity 0.9s var(--ease-swoop), transform 0.9s var(--ease-swoop);
+}
+.reveal.visible { opacity: 1; transform: translateY(0) scale(1); }
+
+/* ── Staggered child reveals (grids) ── */
+.problem-grid .problem-item:nth-child(1) { transition-delay: 0s; }
+.problem-grid .problem-item:nth-child(2) { transition-delay: 0.1s; }
+.problem-grid .problem-item:nth-child(3) { transition-delay: 0.2s; }
+.problem-grid .problem-item:nth-child(4) { transition-delay: 0.3s; }
+.risk-grid .risk-card:nth-child(1) { transition-delay: 0s; }
+.risk-grid .risk-card:nth-child(2) { transition-delay: 0.12s; }
+.risk-grid .risk-card:nth-child(3) { transition-delay: 0.24s; }
+
+/* ── Chapter item slide ── */
+.chapter-item {
+  --slide-x: 0px;
+}
+.chapter-item:hover {
+  padding-left: 12px;
+  transition: padding 0.35s var(--ease-swoop);
+}
+.chapter-item::after {
+  content: '→';
+  margin-left: auto;
+  color: var(--green); font-weight: 700;
+  opacity: 0;
+  transition: opacity 0.25s var(--ease-out), transform 0.25s var(--ease-out);
+  transform: translateX(-8px);
+  align-self: center;
+}
+.chapter-item:hover::after { opacity: 1; transform: translateX(0); }
+
+/* ── Card glow on hover ── */
+.risk-card {
+  position: relative;
+  transition: background 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+}
+.risk-card:hover {
+  background: var(--bg-card);
+  box-shadow: inset 0 0 0 1px rgba(0,179,126,0.15);
+}
+
+/* ── Problem item glow on hover ── */
+.problem-item {
+  transition: background 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+}
+.problem-item:hover {
+  background: var(--bg-2);
+  box-shadow: inset 0 0 0 1px rgba(0,179,126,0.1);
+}
+
+/* ── Grain texture overlay ── */
+@keyframes grain-shift {
+  0%   { transform: translate(0, 0); }
+  10%  { transform: translate(-2%, -3%); }
+  30%  { transform: translate(3%, 2%); }
+  50%  { transform: translate(-1%, 4%); }
+  70%  { transform: translate(4%, -1%); }
+  90%  { transform: translate(-3%, 2%); }
+  100% { transform: translate(0, 0); }
+}
+body::before {
+  content: '';
+  position: fixed; inset: -200%;
+  width: 400%; height: 400%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none; z-index: 9998;
+  animation: grain-shift 0.5s steps(1) infinite;
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════ */
 @media (max-width: 960px) {
   .hero .container { grid-template-columns: 1fr; gap: 48px; }
   .hero::before { display: none; }
   .hero-form { position: static; order: -1; }
-  .stats-bar .container { grid-template-columns: 1fr 1fr 1fr; }
+  .stats-bar .container { grid-template-columns: 1fr 1fr; }
   .stat-cell { padding: 32px 24px; }
   .authority-grid { grid-template-columns: 1fr; gap: 40px; }
   .brand-inner { grid-template-columns: 1fr; gap: 40px; }
@@ -807,6 +983,9 @@ body {
 </head>
 <body>
 
+<!-- Cursor glow -->
+<div id="cursor-glow"></div>
+
 <!-- GTM noscript -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K2HT6HBX"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -829,6 +1008,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- ═══════════════════════════════════ HERO ═══════════════════════════════════ -->
 <section class="hero" id="hero">
+  <!-- Orbs ambiente -->
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-orb hero-orb-3"></div>
   <div class="container">
 
     <!-- COPY -->
@@ -955,6 +1138,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 
 
+<!-- ═══════════════════════════════════ TICKER ═══════════════════════════════════ -->
+<div class="ticker-strip">
+  <div class="ticker-track">
+    <span class="ticker-item"><span class="live-dot"></span>Boost Research</span>
+    <span class="ticker-item">André Franco</span>
+    <span class="ticker-item"><span class="t-dot"></span>+10 anos de mercado cripto</span>
+    <span class="ticker-item">Declaração IR 2026</span>
+    <span class="ticker-item"><span class="t-dot"></span>E-book gratuito</span>
+    <span class="ticker-item">Prazo: 31 de maio</span>
+    <span class="ticker-item"><span class="t-dot"></span>Zero juridiquês</span>
+    <span class="ticker-item">Dois ciclos completos</span>
+    <span class="ticker-item"><span class="t-dot"></span>Criptoativos no IR</span>
+    <span class="ticker-item">Boost Research</span>
+    <span class="ticker-item">André Franco</span>
+    <span class="ticker-item"><span class="t-dot"></span>+10 anos de mercado cripto</span>
+    <span class="ticker-item">Declaração IR 2026</span>
+    <span class="ticker-item"><span class="t-dot"></span>E-book gratuito</span>
+    <span class="ticker-item">Prazo: 31 de maio</span>
+    <span class="ticker-item"><span class="t-dot"></span>Zero juridiquês</span>
+    <span class="ticker-item">Dois ciclos completos</span>
+    <span class="ticker-item"><span class="t-dot"></span>Criptoativos no IR</span>
+  </div>
+</div>
+
+
 <!-- ═══════════════════════════════════ STATS BAR ═══════════════════════════════════ -->
 <div class="stats-bar">
   <div class="container">
@@ -963,10 +1171,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p class="stat-desc">de acompanhamento do mercado cripto — dois ciclos completos de alta e baixa</p>
     </div>
     <div class="stat-cell reveal reveal-d1">
-      <div class="stat-num"><span class="counter" data-target="19" data-prefix="+" data-suffix="k">+19k</span></div>
-      <p class="stat-desc">investidores acompanham a análise da Boost Research</p>
-    </div>
-    <div class="stat-cell reveal reveal-d2">
       <div class="stat-num"><span class="counter" data-target="31">31</span><span class="stat-accent"> maio</span></div>
       <p class="stat-desc">prazo final da Receita Federal — sem prorrogação</p>
     </div>
@@ -1215,10 +1419,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="bs-label">anos de mercado</div>
           </div>
           <div class="brand-stat">
-            <div class="bs-num"><em>+</em><span class="counter" data-target="19">19</span><em>k</em></div>
-            <div class="bs-label">investidores</div>
-          </div>
-          <div class="brand-stat">
             <div class="bs-num"><span class="counter" data-target="2">2</span></div>
             <div class="bs-label">ciclos completos</div>
           </div>
@@ -1454,6 +1654,79 @@ window.addEventListener('submit', function (e) {
     sucEl.style.display = 'block';
   }, 800);
 }, true);
+
+})();
+</script>
+
+
+<!-- ── PREMIUM ANIMATION JS ── -->
+<script>
+(function () {
+'use strict';
+
+/* ─── CURSOR GLOW ─── */
+var glowEl = document.getElementById('cursor-glow');
+if (glowEl && window.matchMedia('(pointer: fine)').matches) {
+  var gx = -400, gy = -400;
+  document.addEventListener('mousemove', function (e) {
+    gx = e.clientX - 200;
+    gy = e.clientY - 200;
+    glowEl.style.transform = 'translate(' + gx + 'px, ' + gy + 'px)';
+  }, { passive: true });
+}
+
+/* ─── HERO H1 WORD REVEAL ─── */
+document.addEventListener('DOMContentLoaded', function () {
+  var h1 = document.querySelector('.hero-h1');
+  if (!h1) return;
+
+  /* Remove a classe reveal do h1 — usamos animação própria */
+  h1.classList.remove('reveal', 'reveal-d1');
+
+  /* Splitta cada palavra em <span class="w"> */
+  function splitWords(node) {
+    var frag = document.createDocumentFragment();
+    var parts = node.textContent.split(/(\s+)/);
+    parts.forEach(function (part) {
+      if (/^\s+$/.test(part)) {
+        frag.appendChild(document.createTextNode(part));
+      } else if (part.length > 0) {
+        var sp = document.createElement('span');
+        sp.className = 'w';
+        sp.textContent = part;
+        frag.appendChild(sp);
+      }
+    });
+    return frag;
+  }
+
+  /* Percorre nós de texto diretos e filhos não-span do h1 */
+  var words = [];
+  Array.from(h1.childNodes).forEach(function (node) {
+    if (node.nodeType === 3) { /* texto */
+      var frag = splitWords(node);
+      h1.replaceChild(frag, node);
+    } else if (node.nodeType === 1 && node.tagName !== 'BR') {
+      /* ex: span.accent */
+      Array.from(node.childNodes).forEach(function (child) {
+        if (child.nodeType === 3) {
+          var frag = splitWords(child);
+          node.replaceChild(frag, child);
+        }
+      });
+    }
+  });
+
+  /* Aplica delay sequencial */
+  var wEls = h1.querySelectorAll('.w');
+  var baseDelay = 0.12; /* segundos, após eyebrow */
+  wEls.forEach(function (el, i) {
+    el.style.animationDelay = (baseDelay + i * 0.06) + 's';
+  });
+});
+
+/* ─── CONTADORES com easing swoop ─── */
+/* (os contadores já existem no script principal — aqui só aumentamos a duração) */
 
 })();
 </script>
