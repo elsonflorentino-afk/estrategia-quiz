@@ -130,11 +130,11 @@ def build_top_ads(ads, thumbs, limit=10):
     for ad in ads[:limit]:
         thumb = thumbs.get(ad['id'], '')
         img_wrap = (
-            f'<div style="width:100%;aspect-ratio:1/1;background:#111;border-radius:8px;overflow:hidden;margin-bottom:10px">'
-            f'<img src="{thumb}" style="width:100%;height:100%;object-fit:contain;display:block">'
+            f'<div style="width:100%;height:150px;background:var(--bg);display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:10px;border-radius:8px">'
+            f'<img src="{thumb}" style="max-width:100%;max-height:100%;object-fit:contain">'
             f'</div>'
         ) if thumb else (
-            f'<div style="width:100%;aspect-ratio:1/1;background:var(--bg2);border-radius:8px;margin-bottom:10px;'
+            f'<div style="width:100%;height:150px;background:var(--bg2);border-radius:8px;margin-bottom:10px;'
             f'display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:11px">sem imagem</div>'
         )
         cpl_color = '#1dd1a1' if ad['cpl'] <= 40 else ('#f59e0b' if ad['cpl'] <= 80 else '#ef4444')
