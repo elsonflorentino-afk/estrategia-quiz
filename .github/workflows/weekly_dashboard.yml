@@ -23,7 +23,6 @@ jobs:
       # ── 3. Rodar pipeline ────────────────────────────────────
       - name: Gerar dashboard
         env:
-          META_TOKEN:        ${{ secrets.META_TOKEN }}
           RD_CLIENT_ID:      ${{ secrets.RD_CLIENT_ID }}
           RD_CLIENT_SECRET:  ${{ secrets.RD_CLIENT_SECRET }}
           RD_REFRESH_TOKEN:  ${{ secrets.RD_REFRESH_TOKEN }}
