@@ -140,12 +140,26 @@ def fetch_creative_thumb(ad_id):
     # 1. image_url — imagem original em alta resolução
     url = r2.get('image_url')
 
-    # 2. object_story_spec — link ou video com imagem de preview
+    # 2. object_story_spec — link, video ou carrossel
     if not url:
         spec = r2.get('object_story_spec', {})
-        url = (spec.get('link_data', {}).get('picture') or
+        link_data = spec.get('link_data', {})
+        url = (link_data.get('picture') or
                spec.get('video_data', {}).get('image_url') or
                spec.get('photo_data', {}).get('url'))
+        # Carrossel: pega image_hash do primeiro card e busca URL
+        if not url:
+            children = link_data.get('child_attachments', [])
+            if children:
+                img_hash = children[0].get('image_hash')
+                if img_hash:
+                    r3 = api(f'/{ACCOUNT}/adimages', {
+                        'hashes': f'["{img_hash}"]',
+                        'fields': 'url'
+                    })
+                    imgs = r3.get('data', [])
+                    if imgs:
+                        url = imgs[0].get('url')
 
     # 3. thumbnail_url — fallback menor
     if not url:
