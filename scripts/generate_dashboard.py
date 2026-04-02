@@ -129,7 +129,7 @@ def build_top_ads(ads, thumbs, limit=10):
     cards = ''
     for ad in ads[:limit]:
         thumb = thumbs.get(ad['id'], '')
-        img_html = (f'<img src="{thumb}" alt="">' if thumb else '<div class="cimg-ph">🎬</div>')
+        img_html = (f'<img src="{thumb}" alt="" style="width:100%;height:auto;display:block">' if thumb else '<div class="cimg-ph">🎬</div>')
         cpl_color = '#1dd1a1' if ad['cpl'] <= 40 else ('#f59e0b' if ad['cpl'] <= 80 else '#ef4444')
         cards += f'''<div class="ccard">
   <div class="cimg-wrap">{img_html}</div>
@@ -258,11 +258,10 @@ tr:hover td{{background:rgba(255,255,255,.02)}}
 .mv{{display:flex;gap:12px;padding:12px 0;border-left:3px solid var(--teal);padding-left:14px;margin-bottom:8px}}
 .mv-w{{flex:0 0 60px;font-size:11px;font-weight:700;color:var(--teal)}}
 .updated{{font-size:10px;color:var(--text3);text-align:right;margin-top:8px}}
-.gallery{{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}}
+.gallery{{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}}
 .ccard{{background:var(--bg3);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color .2s,transform .15s}}
 .ccard:hover{{border-color:var(--accent);transform:translateY(-2px)}}
-.cimg-wrap{{width:100%;background:var(--bg);overflow:hidden}}
-.cimg-wrap img{{width:100%;height:auto;display:block}}
+.cimg-wrap{{width:100%;overflow:hidden;background:#111}}
 .cimg-ph{{font-size:30px;color:var(--text2)}}
 .cbody{{padding:11px}}
 .cname{{font-size:10px;color:var(--text2);margin-bottom:9px;font-family:monospace;line-height:1.4;min-height:28px}}
