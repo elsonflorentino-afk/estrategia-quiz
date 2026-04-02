@@ -123,16 +123,37 @@ def fetch_weekly(year=None, month=None):
     return weeks
 
 def fetch_creative_thumb(ad_id):
-    """Busca thumbnail de um ad em base64. Retorna None se falhar."""
+    """Busca imagem em alta resolução de um ad. Tenta múltiplos campos."""
     import base64
+
+    # Pega o creative_id
     r = api(f'/{ad_id}', {'fields': 'creative'})
     cid = r.get('creative', {}).get('id')
     if not cid:
         return None
-    r2 = api(f'/{cid}', {'fields': 'thumbnail_url,image_url'})
-    url = r2.get('thumbnail_url') or r2.get('image_url')
+
+    # Tenta campos em ordem de qualidade decrescente
+    r2 = api(f'/{cid}', {
+        'fields': 'image_url,thumbnail_url,object_story_spec'
+    })
+
+    # 1. image_url — imagem original em alta resolução
+    url = r2.get('image_url')
+
+    # 2. object_story_spec — link ou video com imagem de preview
+    if not url:
+        spec = r2.get('object_story_spec', {})
+        url = (spec.get('link_data', {}).get('picture') or
+               spec.get('video_data', {}).get('image_url') or
+               spec.get('photo_data', {}).get('url'))
+
+    # 3. thumbnail_url — fallback menor
+    if not url:
+        url = r2.get('thumbnail_url')
+
     if not url:
         return None
+
     try:
         req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
         with urllib.request.urlopen(req, context=ctx, timeout=12) as resp:
