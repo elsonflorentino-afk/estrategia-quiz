@@ -129,10 +129,17 @@ def build_top_ads(ads, thumbs, limit=10):
     cards = ''
     for ad in ads[:limit]:
         thumb = thumbs.get(ad['id'], '')
-        img = f'<img src="{thumb}" style="width:100%;height:80px;object-fit:cover;border-radius:6px;margin-bottom:8px">' if thumb else '<div style="width:100%;height:80px;background:var(--bg2);border-radius:6px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:11px">sem imagem</div>'
+        img_wrap = (
+            f'<div style="width:100%;aspect-ratio:1/1;background:#111;border-radius:8px;overflow:hidden;margin-bottom:10px">'
+            f'<img src="{thumb}" style="width:100%;height:100%;object-fit:contain;display:block">'
+            f'</div>'
+        ) if thumb else (
+            f'<div style="width:100%;aspect-ratio:1/1;background:var(--bg2);border-radius:8px;margin-bottom:10px;'
+            f'display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:11px">sem imagem</div>'
+        )
         cpl_color = '#1dd1a1' if ad['cpl'] <= 40 else ('#f59e0b' if ad['cpl'] <= 80 else '#ef4444')
         cards += f'''<div style="background:var(--bg1);border:1px solid var(--border);border-radius:10px;padding:12px">
-          {img}
+          {img_wrap}
           <div style="font-size:11px;color:var(--text2);margin-bottom:6px;line-height:1.3">{ad["name"][:60]}</div>
           <div style="display:flex;justify-content:space-between;font-size:12px">
             <span style="color:#1dd1a1;font-weight:700">{ad["leads"]} leads</span>
@@ -140,7 +147,7 @@ def build_top_ads(ads, thumbs, limit=10):
           </div>
           <div style="font-size:11px;color:var(--text3);margin-top:4px">{fmt_brl(ad["spend"])} · {ad["ctr"]:.1f}% CTR</div>
         </div>'''
-    return f'<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px">{cards}</div>'
+    return f'<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px">{cards}</div>'
 
 def build_qual_bar(qual):
     """Barra de patrimônio cripto."""
