@@ -214,8 +214,7 @@ if __name__ == '__main__':
 
     print('Buscando thumbnails dos criativos...')
     thumbs = {}
-    top_ads = [a for a in ads if a['leads'] > 0 or a['spend'] > 50][:15]
-    for a in top_ads:
+    for a in ads[:20]:
         t = fetch_creative_thumb(a['id'])
         if t:
             thumbs[a['id']] = t
