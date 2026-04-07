@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="public, max-age=2592000">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Webinar: R$1 Milhão Não É o Que Você Pensa | André Franco — Boost Research</title>
+<meta name="description" content="08 de abril, 20h. André Franco mostra por que R$1 milhão rende só R$5.159/mês — e o que BlackRock, Fidelity e Yale descobriram que pode mudar sua aposentadoria. Webinar gratuito + material exclusivo.">
+
+<meta property="og:title" content="Webinar: R$1 Milhão Não É o Que Você Pensa">
+<meta property="og:description" content="08 de abril, 20h. André Franco — Boost Research. Webinar gratuito + material exclusivo.">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="preconnect" href="https://api.rd.services" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"></noscript>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K2HT6HBX');</script>
+
+<style>
+:root {
+  --bg: #16242B;
+  --bg2: #1c2d35;
+  --bg3: #243640;
+  --teal: #10DAC8;
+  --teal-dim: rgba(16, 218, 200, 0.15);
+  --white: #FFFFFF;
+  --gray: #B4BEC3;
+  --gray-dim: #6B7780;
+  --red: #ef4444;
+  --font: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+  --max-w: 1100px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-font-smoothing:antialiased; }
+html { scroll-behavior:smooth; }
+body { background:var(--bg); color:var(--white); font-family:var(--font); line-height:1.6; }
+
+.container { max-width:var(--max-w); margin:0 auto; padding:0 24px; }
+
+/* ========= NAVBAR ========= */
+.navbar {
+  position:sticky; top:0; z-index:100;
+  background:rgba(22,36,43,0.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  padding:16px 0;
+}
+.navbar .container { display:flex; align-items:center; justify-content:space-between; }
+.logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
+.logo-mark { color:var(--teal); font-size:1.6rem; font-weight:900; line-height:1; }
+.logo-text { display:flex; flex-direction:column; line-height:1; }
+.logo-text strong { color:var(--white); font-size:1.05rem; font-weight:900; letter-spacing:-0.02em; }
+.logo-text span { color:var(--gray); font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; margin-top:2px; }
+.navbar-cta {
+  background:var(--teal); color:#000; font-weight:700; font-size:0.85rem;
+  padding:11px 22px; border-radius:8px; text-decoration:none;
+  transition:transform 0.2s, opacity 0.2s;
+}
+.navbar-cta:hover { opacity:0.88; transform:translateY(-1px); }
+
+/* ========= HERO ========= */
+.hero { padding:60px 0 80px; position:relative; overflow:hidden; }
+.hero::before {
+  content:''; position:absolute; top:-200px; right:-200px;
+  width:600px; height:600px; border-radius:50%;
+  background:radial-gradient(circle, rgba(16,218,200,0.08), transparent 70%);
+  pointer-events:none;
+}
+.hero-grid { display:grid; grid-template-columns:1.2fr 1fr; gap:60px; align-items:center; position:relative; }
+@media (max-width: 920px) { .hero-grid { grid-template-columns:1fr; gap:48px; } }
+
+.eyebrow {
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--teal-dim); border:1px solid rgba(16,218,200,0.3);
+  color:var(--teal); font-size:0.75rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:0.08em;
+  padding:8px 16px; border-radius:100px; margin-bottom:20px;
+}
+.eyebrow::before {
+  content:''; width:8px; height:8px; background:var(--teal);
+  border-radius:50%; animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
+
+h1 {
+  font-size:clamp(2.2rem, 5vw, 3.6rem);
+  font-weight:900; line-height:1.05; letter-spacing:-0.035em;
+  margin-bottom:20px;
+}
+h1 .accent { color:var(--teal); }
+
+.hero-sub {
+  font-size:clamp(1rem, 1.5vw, 1.15rem);
+  color:var(--gray); margin-bottom:32px; max-width:540px;
+}
+
+.hero-meta {
+  display:flex; gap:32px; flex-wrap:wrap; margin-bottom:36px;
+  padding:20px 24px; background:var(--bg2); border-radius:12px;
+  border:1px solid var(--bg3);
+}
+.meta-item .label {
+  font-size:0.7rem; color:var(--gray-dim);
+  text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px;
+}
+.meta-item .value { font-size:1.05rem; font-weight:700; color:var(--white); }
+.meta-item .value.teal { color:var(--teal); }
+
+.trust-row { display:flex; gap:20px; flex-wrap:wrap; }
+.trust-row .item {
+  display:flex; align-items:center; gap:8px;
+  font-size:0.82rem; color:var(--gray);
+}
+.trust-row .item::before {
+  content:'✓'; color:var(--teal); font-weight:900;
+}
+
+/* ========= FORMULÁRIO HERO ========= */
+.form-card {
+  background:var(--bg2);
+  border:1px solid var(--bg3);
+  border-radius:16px;
+  padding:32px;
+  position:relative;
+}
+.form-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg, var(--teal), transparent);
+  border-radius:16px 16px 0 0;
+}
+.form-card h3 {
+  font-size:1.25rem; font-weight:800; margin-bottom:8px; letter-spacing:-0.02em;
+}
+.form-card p { font-size:0.88rem; color:var(--gray); margin-bottom:24px; }
+
+.form-group { margin-bottom:14px; }
+.form-group label {
+  display:block; font-size:0.75rem; color:var(--gray);
+  text-transform:uppercase; letter-spacing:0.06em;
+  margin-bottom:6px; font-weight:600;
+}
+.form-group input {
+  width:100%; padding:14px 16px;
+  background:var(--bg);
+  border:1px solid var(--bg3);
+  border-radius:8px;
+  color:var(--white); font-family:var(--font);
+  font-size:0.95rem; transition:border-color 0.2s;
+}
+.form-group input:focus {
+  outline:none; border-color:var(--teal);
+}
+.form-group input::placeholder { color:var(--gray-dim); }
+
+.btn-primary {
+  width:100%; padding:16px;
+  background:var(--teal); color:#000;
+  border:none; border-radius:8px;
+  font-family:var(--font); font-weight:800; font-size:1rem;
+  letter-spacing:-0.01em; cursor:pointer;
+  transition:opacity 0.2s, transform 0.2s;
+  margin-top:8px;
+}
+.btn-primary:hover { opacity:0.9; transform:translateY(-1px); }
+.btn-primary:disabled { opacity:0.5; cursor:not-allowed; }
+
+.form-micro {
+  text-align:center; font-size:0.72rem; color:var(--gray-dim);
+  margin-top:14px; line-height:1.5;
+}
+
+.form-success, .form-error {
+  display:none; padding:18px; border-radius:8px;
+  text-align:center; font-size:0.92rem; font-weight:600;
+  margin-top:14px;
+}
+.form-success {
+  background:rgba(16,218,200,0.1); color:var(--teal);
+  border:1px solid rgba(16,218,200,0.3);
+}
+.form-error {
+  background:rgba(239,68,68,0.1); color:var(--red);
+  border:1px solid rgba(239,68,68,0.3);
+}
+
+/* ========= COUNTDOWN ========= */
+.countdown-section {
+  background:var(--bg2); padding:40px 0;
+  border-top:1px solid var(--bg3); border-bottom:1px solid var(--bg3);
+}
+.countdown {
+  display:flex; gap:16px; justify-content:center; flex-wrap:wrap;
+}
+.countdown-item {
+  background:var(--bg); border:1px solid var(--bg3);
+  padding:18px 28px; border-radius:12px;
+  min-width:90px; text-align:center;
+}
+.countdown-item .num {
+  font-size:2rem; font-weight:900; color:var(--teal);
+  font-variant-numeric:tabular-nums; line-height:1;
+}
+.countdown-item .lbl {
+  font-size:0.65rem; color:var(--gray);
+  text-transform:uppercase; letter-spacing:0.1em;
+  margin-top:6px;
+}
+.countdown-title {
+  text-align:center; font-size:0.8rem;
+  color:var(--gray); text-transform:uppercase;
+  letter-spacing:0.12em; margin-bottom:24px;
+}
+
+/* ========= O QUE VAI APRENDER ========= */
+.section { padding:80px 0; }
+.section-eyebrow {
+  display:block; color:var(--teal); font-size:0.78rem;
+  font-weight:700; text-transform:uppercase; letter-spacing:0.1em;
+  margin-bottom:14px;
+}
+h2 {
+  font-size:clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight:900; line-height:1.1; letter-spacing:-0.03em;
+  margin-bottom:16px; max-width:760px;
+}
+.section-sub {
+  font-size:1.05rem; color:var(--gray);
+  margin-bottom:48px; max-width:680px;
+}
+
+.bullets {
+  display:grid; grid-template-columns:repeat(2,1fr);
+  gap:24px; margin-top:40px;
+}
+@media (max-width:760px) { .bullets { grid-template-columns:1fr; } }
+
+.bullet {
+  display:flex; gap:18px; padding:24px;
+  background:var(--bg2); border:1px solid var(--bg3);
+  border-radius:12px; transition:border-color 0.2s, transform 0.2s;
+}
+.bullet:hover { border-color:rgba(16,218,200,0.4); transform:translateY(-2px); }
+.bullet-num {
+  flex-shrink:0; width:42px; height:42px;
+  background:var(--teal-dim); color:var(--teal);
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-weight:900; font-size:1.05rem;
+}
+.bullet h3 {
+  font-size:1.05rem; font-weight:700;
+  margin-bottom:6px; letter-spacing:-0.01em;
+}
+.bullet p { font-size:0.88rem; color:var(--gray); }
+
+/* ========= DADOS CHOCANTES ========= */
+.stats-section {
+  background:linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+  padding:80px 0; border-top:1px solid var(--bg3);
+}
+.stats-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:30px; margin-top:48px;
+}
+@media (max-width:760px) { .stats-grid { grid-template-columns:1fr; } }
+.stat-card {
+  background:var(--bg); border:1px solid var(--bg3);
+  border-radius:16px; padding:36px 28px; text-align:center;
+  position:relative; overflow:hidden;
+}
+.stat-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:var(--teal);
+}
+.stat-num {
+  font-size:clamp(2.2rem, 4vw, 3.2rem);
+  font-weight:900; color:var(--teal); letter-spacing:-0.03em;
+  line-height:1; margin-bottom:8px;
+}
+.stat-label {
+  font-size:0.85rem; color:var(--gray);
+  font-weight:500; line-height:1.5;
+}
+
+/* ========= ANDRÉ ========= */
+.about-andre {
+  display:grid; grid-template-columns:1fr 1.3fr;
+  gap:60px; align-items:center; padding:80px 0;
+}
+@media (max-width:760px) { .about-andre { grid-template-columns:1fr; gap:32px; } }
+.andre-info h2 { margin-bottom:20px; }
+.andre-info p {
+  font-size:1rem; color:var(--gray);
+  line-height:1.7; margin-bottom:16px;
+}
+.andre-stats {
+  display:flex; gap:32px; margin-top:28px; flex-wrap:wrap;
+}
+.andre-stat .num {
+  font-size:2rem; font-weight:900; color:var(--teal); line-height:1;
+}
+.andre-stat .lbl {
+  font-size:0.7rem; color:var(--gray); text-transform:uppercase;
+  letter-spacing:0.08em; margin-top:4px;
+}
+
+/* ========= INSTITUIÇÕES ========= */
+.institutions-section {
+  background:var(--bg2); padding:80px 0;
+  border-top:1px solid var(--bg3); border-bottom:1px solid var(--bg3);
+}
+.inst-grid {
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(180px, 1fr));
+  gap:14px; margin-top:40px;
+}
+.inst-item {
+  background:var(--bg); padding:18px 20px;
+  border:1px solid var(--bg3); border-radius:8px;
+  font-size:0.92rem; font-weight:600; color:var(--white);
+  text-align:center;
+}
+.inst-item:hover { border-color:rgba(16,218,200,0.4); }
+
+/* ========= FAQ ========= */
+.faq-section { padding:80px 0; }
+.faq-list { max-width:780px; }
+.faq-item {
+  background:var(--bg2); border:1px solid var(--bg3);
+  border-radius:12px; margin-bottom:12px; overflow:hidden;
+}
+.faq-question {
+  padding:22px 28px; font-weight:600; font-size:1rem;
+  cursor:pointer; display:flex; justify-content:space-between;
+  align-items:center; gap:16px;
+}
+.faq-question::after {
+  content:'+'; color:var(--teal); font-size:1.5rem;
+  font-weight:300; flex-shrink:0;
+}
+.faq-item.open .faq-question::after { content:'−'; }
+.faq-answer {
+  max-height:0; overflow:hidden;
+  padding:0 28px; color:var(--gray); font-size:0.92rem;
+  transition:max-height 0.3s ease;
+}
+.faq-item.open .faq-answer {
+  max-height:300px; padding:0 28px 22px;
+}
+
+/* ========= CTA FINAL ========= */
+.cta-final {
+  background:linear-gradient(135deg, #16242B 0%, #1a3540 100%);
+  padding:100px 0; text-align:center; border-top:1px solid var(--bg3);
+}
+.cta-final h2 { margin:0 auto 20px; }
+.cta-final p { font-size:1.05rem; color:var(--gray); max-width:600px; margin:0 auto 36px; }
+.cta-final .btn-primary { display:inline-block; max-width:380px; text-decoration:none; }
+
+/* ========= FOOTER ========= */
+footer {
+  background:#0d1a1f; padding:48px 0 32px;
+  border-top:1px solid var(--bg3);
+}
+footer .container { display:flex; justify-content:space-between; flex-wrap:wrap; gap:24px; }
+footer .logo { opacity:0.7; }
+footer .copy { font-size:0.78rem; color:var(--gray-dim); }
+
+/* ========= WHATSAPP FLOAT ========= */
+.wa-float {
+  position:fixed; bottom:24px; right:24px;
+  background:#25D366; color:#fff;
+  padding:14px 22px; border-radius:100px;
+  text-decoration:none; font-weight:700; font-size:0.88rem;
+  display:none; align-items:center; gap:10px;
+  box-shadow:0 4px 24px rgba(0,0,0,0.4); z-index:50;
+  transition:transform 0.2s;
+}
+.wa-float.visible { display:flex; }
+.wa-float:hover { transform:translateY(-2px); }
+</style>
+</head>
+<body>
+
+<!-- GTM noscript -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K2HT6HBX"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- ========= NAVBAR ========= -->
+<nav class="navbar">
+  <div class="container">
+    <a href="#hero" class="logo">
+      <span class="logo-mark">Δ</span>
+      <span class="logo-text">
+        <strong>BOOST</strong>
+        <span>RESEARCH</span>
+      </span>
+    </a>
+    <a href="#formulario" class="navbar-cta" onclick="dl('cta_click','navbar_cta')">Garantir minha vaga →</a>
+  </div>
+</nav>
+
+<!-- ========= HERO ========= -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">Webinar gratuito · Ao vivo</span>
+        <h1>R$1 milhão não é<br>o que você pensa.</h1>
+        <p class="hero-sub">
+          André Franco mostra por que R$1 milhão na renda fixa rende só <strong style="color:var(--white);">R$5.159 por mês</strong> — e o que <strong style="color:var(--white);">BlackRock, Fidelity e Yale</strong> descobriram que pode acelerar sua aposentadoria em até 8 anos.
+        </p>
+
+        <div class="hero-meta">
+          <div class="meta-item">
+            <div class="label">Data</div>
+            <div class="value">08 de abril</div>
+          </div>
+          <div class="meta-item">
+            <div class="label">Horário</div>
+            <div class="value teal">20h00</div>
+          </div>
+          <div class="meta-item">
+            <div class="label">Onde</div>
+            <div class="value">YouTube Boost</div>
+          </div>
+        </div>
+
+        <div class="trust-row">
+          <div class="item">100% gratuito</div>
+          <div class="item">Material exclusivo</div>
+          <div class="item">Replay liberado</div>
+          <div class="item">Sem compromisso</div>
+        </div>
+      </div>
+
+      <div class="form-card" id="formulario">
+        <h3>Garanta sua vaga</h3>
+        <p>Preencha abaixo. Você recebe o link do webinar e o material exclusivo no seu e-mail.</p>
+
+        <form id="form-webinar">
+          <div class="form-group">
+            <label>Nome completo</label>
+            <input type="text" name="nome" required placeholder="Seu nome">
+          </div>
+          <div class="form-group">
+            <label>E-mail</label>
+            <input type="email" name="email" required placeholder="voce@email.com">
+          </div>
+          <div class="form-group">
+            <label>WhatsApp</label>
+            <input type="tel" name="whatsapp" required placeholder="(11) 99999-9999">
+          </div>
+          <button type="submit" class="btn-primary" id="btn-submit">
+            Quero participar do webinar →
+          </button>
+          <p class="form-micro">
+            🔒 Seus dados são usados exclusivamente para enviar o link do webinar e o material exclusivo. Sem spam.
+          </p>
+        </form>
+
+        <div class="form-success" id="form-success">
+          ✓ Inscrição confirmada! Verifique seu e-mail para receber o link do webinar e o material exclusivo.
+        </div>
+        <div class="form-error" id="form-error">
+          Ocorreu um erro. Tente novamente ou entre em contato pelo WhatsApp.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========= COUNTDOWN ========= -->
+<section class="countdown-section">
+  <div class="container">
+    <div class="countdown-title">O webinar começa em</div>
+    <div class="countdown" id="countdown">
+      <div class="countdown-item"><div class="num" id="cd-days">0</div><div class="lbl">Dias</div></div>
+      <div class="countdown-item"><div class="num" id="cd-hours">0</div><div class="lbl">Horas</div></div>
+      <div class="countdown-item"><div class="num" id="cd-mins">0</div><div class="lbl">Minutos</div></div>
+      <div class="countdown-item"><div class="num" id="cd-secs">0</div><div class="lbl">Segundos</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========= O QUE VAI APRENDER ========= -->
+<section class="section">
+  <div class="container">
+    <span class="section-eyebrow">O que você vai aprender</span>
+    <h2>6 verdades sobre seu patrimônio que ninguém te conta.</h2>
+
+    <div class="bullets">
+      <div class="bullet">
+        <div class="bullet-num">1</div>
+        <div>
+          <h3>Por que R$1M rende só R$5.159/mês</h3>
+          <p>Faça a conta real: Selic, IR, inflação. O que sobra depois de tudo. E por que isso não dá liberdade financeira.</p>
+        </div>
+      </div>
+      <div class="bullet">
+        <div class="bullet-num">2</div>
+        <div>
+          <h3>A erosão silenciosa do CDI</h3>
+          <p>R$1 milhão de 2006 = R$342 mil hoje em poder de compra. O ladrão silencioso do patrimônio brasileiro.</p>
+        </div>
+      </div>
+      <div class="bullet">
+        <div class="bullet-num">3</div>
+        <div>
+          <h3>O que BlackRock e Fidelity descobriram</h3>
+          <p>11 instituições convergiram na mesma conclusão: 1-5% de Bitcoin melhora retorno e Sharpe Ratio. Os estudos completos.</p>
+        </div>
+      </div>
+      <div class="bullet">
+        <div class="bullet-num">4</div>
+        <div>
+          <h3>A assimetria 3x</h3>
+          <p>Ganhar quase 3x mais do que se pode perder. A matemática que muda como investidores sofisticados pensam alocação.</p>
+        </div>
+      </div>
+      <div class="bullet">
+        <div class="bullet-num">5</div>
+        <div>
+          <h3>Quanto você realmente precisa</h3>
+          <p>R$15 mil/mês de renda real exige R$2,9 milhões — quase 3x mais do que a maioria imagina. As contas verdadeiras.</p>
+        </div>
+      </div>
+      <div class="bullet">
+        <div class="bullet-num">6</div>
+        <div>
+          <h3>Como implementar no seu portfólio</h3>
+          <p>Diagnóstico, alocação, rebalanceamento, custódia. O passo a passo prático aplicável ao seu patrimônio brasileiro.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========= STATS ========= -->
+<section class="stats-section">
+  <div class="container">
+    <span class="section-eyebrow">Os números que te chocam</span>
+    <h2>A realidade do investidor brasileiro.</h2>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num">R$5.159</div>
+        <div class="stat-label">Renda mensal real de R$1 milhão na Selic, depois de IR e inflação</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">R$342k</div>
+        <div class="stat-label">Quanto vale hoje R$1 milhão investido em CDI em 2006 (poder de compra)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">R$2,9M</div>
+        <div class="stat-label">Patrimônio real necessário para R$15 mil/mês sem tocar no principal</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">+101,6%</div>
+        <div class="stat-label">Retorno do portfólio 60/40 com 2,5% de Bitcoin (vs 64% sem)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">11</div>
+        <div class="stat-label">Instituições globais que convergem na mesma recomendação de alocação</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">-3%</div>
+        <div class="stat-label">Pior cenário possível (Bitcoin a zero) na simulação Fidelity para aposentadoria</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========= ANDRÉ ========= -->
+<section class="section">
+  <div class="container">
+    <div class="about-andre">
+      <div>
+        <span class="section-eyebrow">Quem apresenta</span>
+        <h2 style="font-size:2rem;">André Franco<br><span style="color:var(--teal);">Boost Research</span></h2>
+        <div class="andre-stats">
+          <div class="andre-stat">
+            <div class="num">+10</div>
+            <div class="lbl">Anos no mercado</div>
+          </div>
+          <div class="andre-stat">
+            <div class="num">2</div>
+            <div class="lbl">Ciclos completos</div>
+          </div>
+          <div class="andre-stat">
+            <div class="num">zero</div>
+            <div class="lbl">Comissão de exchange</div>
+          </div>
+        </div>
+      </div>
+      <div class="andre-info">
+        <p>André Franco acompanha cripto desde 2016 — dois ciclos completos de alta e baixa, com o mesmo método, o mesmo analista. A Boost Research não nasceu no bull market. Nasceu dentro do mercado e permanece aqui, independente de onde o preço está.</p>
+        <p>Research house com honorário fixo, sem conflito de interesse com exchanges ou produtos comissionados. Nesse webinar, André apresenta os estudos das maiores gestoras do mundo aplicados à realidade brasileira — e como você pode implementar essa estratégia no seu portfólio.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========= INSTITUIÇÕES ========= -->
+<section class="institutions-section">
+  <div class="container">
+    <span class="section-eyebrow">Validado pelo mundo institucional</span>
+    <h2>11 das maiores gestoras do planeta convergem na mesma conclusão.</h2>
+    <p class="section-sub">Estudos independentes, metodologias diferentes, mesma recomendação: 1% a 5% de alocação em Bitcoin melhora o retorno ajustado ao risco.</p>
+
+    <div class="inst-grid">
+      <div class="inst-item">BlackRock</div>
+      <div class="inst-item">Fidelity</div>
+      <div class="inst-item">Yale</div>
+      <div class="inst-item">ARK Invest</div>
+      <div class="inst-item">Morningstar</div>
+      <div class="inst-item">VanEck</div>
+      <div class="inst-item">Bitwise</div>
+      <div class="inst-item">CFA Institute</div>
+      <div class="inst-item">FTSE Russell</div>
+      <div class="inst-item">Grayscale</div>
+      <div class="inst-item">Galaxy Digital</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========= FAQ ========= -->
+<section class="faq-section">
+  <div class="container">
+    <span class="section-eyebrow">Perguntas frequentes</span>
+    <h2>Tudo que você precisa saber.</h2>
+
+    <div class="faq-list" style="margin-top:40px;">
+      <div class="faq-item">
+        <div class="faq-question">O webinar é gratuito mesmo?</div>
+        <div class="faq-answer"><p>Sim, 100% gratuito. Não há venda de produto ou cobrança no fim. É um webinar educacional onde André apresenta os dados e a metodologia. Quem quiser conversar sobre aplicação prática pode agendar um diagnóstico gratuito depois.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Como recebo o link do webinar?</div>
+        <div class="faq-answer"><p>Após preencher o formulário, você recebe o link no seu e-mail e no WhatsApp cadastrado. Também enviamos um lembrete 1 hora antes do início.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Vai ter replay se eu não puder assistir ao vivo?</div>
+        <div class="faq-answer"><p>Sim. O replay fica disponível por 48h após o webinar para todos os inscritos. Você recebe o link no e-mail.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">O que é o "material exclusivo"?</div>
+        <div class="faq-answer"><p>Um e-book completo (PDF, 18 páginas) com os estudos da BlackRock, Fidelity, Yale e mais 8 instituições, dados completos, simulações e o passo a passo de implementação. É o material de apoio do webinar — você recebe junto com o link.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Eu já invisto em cripto. Vale a pena para mim?</div>
+        <div class="faq-answer"><p>Sim. O webinar é especialmente útil para quem já investe sem método: aborda alocação correta, rebalanceamento trimestral, custódia segura e gestão de risco. É o que separa quem tem cripto de quem tem processo.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">É necessário ter R$1 milhão para participar?</div>
+        <div class="faq-answer"><p>Não. O webinar é aberto a qualquer investidor que queira entender estratégia patrimonial de longo prazo. Os princípios se aplicam a qualquer faixa de patrimônio.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========= CTA FINAL ========= -->
+<section class="cta-final">
+  <div class="container">
+    <h2>Garanta sua vaga agora.</h2>
+    <p>08 de abril, 20h, no YouTube da Boost. Vagas limitadas para o material exclusivo.</p>
+    <a href="#formulario" class="btn-primary" onclick="dl('cta_click','final_cta')">Quero minha vaga →</a>
+  </div>
+</section>
+
+<!-- ========= FOOTER ========= -->
+<footer>
+  <div class="container">
+    <a href="#hero" class="logo">
+      <span class="logo-mark">Δ</span>
+      <span class="logo-text">
+        <strong>BOOST</strong>
+        <span>RESEARCH</span>
+      </span>
+    </a>
+    <div class="copy">
+      © 2026 Boost Research · Não é recomendação de investimento. Material educacional.
+    </div>
+  </div>
+</footer>
+
+<!-- ========= WHATSAPP FLOAT ========= -->
+<a href="https://wa.me/5521965622891?text=Olá%2C%20tenho%20interesse%20no%20webinar%20do%20André%20Franco"
+   target="_blank" rel="noopener" class="wa-float" id="btn-wa"
+   onclick="dl('whatsapp_click','floating_wa')">
+  💬 Falar com a Boost
+</a>
+
+<script>
+// ===== UTM Capture =====
+(function() {
+  function setCookie(n,v,d){var e=new Date();e.setTime(e.getTime()+d*864e5);document.cookie=n+'='+encodeURIComponent(v)+'; expires='+e.toUTCString()+'; path=/; SameSite=Lax';}
+  var p=new URLSearchParams(window.location.search);
+  ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(function(k){
+    var v=p.get(k);if(v){setCookie('boost_'+k,v,30);try{sessionStorage.setItem('boost_'+k,v);}catch(e){}}
+  });
+})();
+
+function getCookie(n){var v="; "+document.cookie;var p=v.split("; "+n+"=");if(p.length===2)return decodeURIComponent(p.pop().split(";").shift());return null;}
+function getUTM(k){return getCookie('boost_'+k)||(k==='source'?'direct':k==='medium'?'none':undefined);}
+
+// ===== DataLayer push helper =====
+function dl(event, ctaId) {
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({event: event, cta_id: ctaId});
+}
+
+// ===== Countdown =====
+(function() {
+  var target = new Date('2026-04-08T20:00:00-03:00').getTime();
+  function update() {
+    var now = new Date().getTime();
+    var diff = target - now;
+    if (diff < 0) {
+      document.getElementById('countdown').innerHTML = '<div style="font-size:1.3rem;color:var(--teal);font-weight:800;">🔴 AO VIVO AGORA</div>';
+      return;
+    }
+    var d = Math.floor(diff/(1000*60*60*24));
+    var h = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+    var m = Math.floor((diff%(1000*60*60))/(1000*60));
+    var s = Math.floor((diff%(1000*60))/1000);
+    document.getElementById('cd-days').textContent = d;
+    document.getElementById('cd-hours').textContent = h;
+    document.getElementById('cd-mins').textContent = m;
+    document.getElementById('cd-secs').textContent = s;
+  }
+  update();
+  setInterval(update, 1000);
+})();
+
+// ===== FAQ accordion =====
+document.querySelectorAll('.faq-item').forEach(function(item) {
+  item.querySelector('.faq-question').addEventListener('click', function() {
+    item.classList.toggle('open');
+  });
+});
+
+// ===== WhatsApp float scroll =====
+window.addEventListener('scroll', function() {
+  var btn = document.getElementById('btn-wa');
+  if (window.scrollY > 400) btn.classList.add('visible');
+  else btn.classList.remove('visible');
+}, {passive:true});
+
+// ===== Phone mask =====
+document.querySelector('input[name="whatsapp"]').addEventListener('input', function(e) {
+  var v = e.target.value.replace(/\D/g, '').slice(0, 11);
+  if (v.length > 6) v = '(' + v.slice(0,2) + ') ' + v.slice(2,7) + '-' + v.slice(7);
+  else if (v.length > 2) v = '(' + v.slice(0,2) + ') ' + v.slice(2);
+  e.target.value = v;
+});
+
+// ===== Form submit =====
+document.getElementById('form-webinar').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var btn = document.getElementById('btn-submit');
+  var form = e.target;
+  var sucEl = document.getElementById('form-success');
+  var errEl = document.getElementById('form-error');
+
+  errEl.style.display = 'none';
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+
+  var nome = form.nome.value.trim();
+  var email = form.email.value.trim();
+  var wppDigits = form.whatsapp.value.replace(/\D/g, '');
+
+  if (wppDigits.length < 10) {
+    errEl.textContent = 'WhatsApp inválido. Use o formato (11) 99999-9999';
+    errEl.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Quero participar do webinar →';
+    return;
+  }
+
+  var payload = {
+    event_type: 'CONVERSION',
+    event_family: 'CDP',
+    payload: {
+      conversion_identifier: 'webinar_1milhao_abr2026',
+      name: nome,
+      email: email,
+      mobile_phone: '+55' + wppDigits,
+      tags: ['webinar-1milhao', 'webinar-1milhao-inscrito'],
+      cf_evento: 'Webinar R$1 Milhão Não É o Que Você Pensa',
+      cf_data_evento: '2026-04-08 20:00',
+      traffic_source: getUTM('source'),
+      traffic_medium: getUTM('medium'),
+      traffic_campaign: getUTM('campaign') || undefined,
+      traffic_value: getUTM('content') || undefined,
+      traffic_term: getUTM('term') || undefined
+    }
+  };
+
+  fetch('https://api.rd.services/platform/conversions?api_key=bc2df20b157ec364568de6de25e33fea', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json', 'accept': 'application/json'},
+    body: JSON.stringify(payload)
+  })
+  .then(function(r) { return r.text().then(function(body) { if (!r.ok) throw new Error('HTTP ' + r.status); }); })
+  .then(function() {
+    form.style.display = 'none';
+    sucEl.style.display = 'block';
+    var eventId = 'webinar_' + Date.now() + '_' + Math.random().toString(36).slice(2, 9);
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'generate_lead',
+      form_id: 'webinar_1milhao',
+      event_id: eventId,
+      user_email: email,
+      user_phone: '55' + wppDigits,
+      user_name: nome
+    });
+  })
+  .catch(function(err) {
+    console.error('Erro:', err.message);
+    errEl.textContent = 'Ocorreu um erro. Tente novamente ou entre em contato pelo WhatsApp.';
+    errEl.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Quero participar do webinar →';
+  });
+});
+</script>
+</body>
+</html>
