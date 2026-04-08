@@ -144,6 +144,35 @@ def build_ad_row(ad, insights, campaign_id):
     }
 
 
+LEAD_OBJECTIVES = {
+    "OUTCOME_LEADS",
+    "LEAD_GENERATION",
+    "CONVERSIONS",
+    "OUTCOME_SALES",
+    "OUTCOME_TRAFFIC",  # LP de captação
+}
+
+
+def is_relevant_campaign(c):
+    """Filtra apenas campanhas relevantes pra análise de CAC."""
+    objective = c.get("objective", "")
+    name = c.get("name", "")
+
+    # Descarta posts impulsionados automáticos
+    if name.startswith("Post do Instagram") or name.startswith("Post do Facebook"):
+        return False
+
+    # Aceita campanhas com objective de lead
+    if objective in LEAD_OBJECTIVES:
+        return True
+
+    # Aceita campanhas com naming pattern Boost (prefixo [BR] ou [BOOST])
+    if name.startswith("[BR]") or "[BOOST]" in name:
+        return True
+
+    return False
+
+
 def sync_campaigns(days, only_active):
     since = (datetime.now() - timedelta(days=days)).strftime("%Y-%m-%d")
     until = datetime.now().strftime("%Y-%m-%d")
@@ -157,8 +186,13 @@ def sync_campaigns(days, only_active):
     if only_active:
         params["effective_status"] = json.dumps(["ACTIVE"])
 
-    campaigns = meta_get_paginated(f"{META_ACCOUNT}/campaigns", params)
-    print(f"📊 Campaigns fetched: {len(campaigns)}")
+    all_campaigns = meta_get_paginated(f"{META_ACCOUNT}/campaigns", params)
+    print(f"📊 Campaigns raw: {len(all_campaigns)}")
+
+    # Filtra só relevantes
+    campaigns = [c for c in all_campaigns if is_relevant_campaign(c)]
+    print(f"📊 Campaigns relevantes (lead/conversão/tagged BR|BOOST): {len(campaigns)}")
+    print(f"📊 Filtradas fora: {len(all_campaigns) - len(campaigns)}")
 
     camp_rows = []
     ad_rows = []
@@ -211,7 +245,7 @@ def sync_campaigns(days, only_active):
                 ai = ad_insights_map.get(aid, {})
                 ad_rows.append(build_ad_row(ad, ai, cid))
 
-        time.sleep(0.3)  # rate limit Meta
+        time.sleep(0.15)  # rate limit Meta
 
     return camp_rows, ad_rows
 
