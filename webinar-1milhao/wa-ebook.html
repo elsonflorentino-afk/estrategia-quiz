@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Redirecionando... | Boost Research</title>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K2HT6HBX');</script>
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background:#000;
+  color:#fff;
+  font-family: 'Inter', -apple-system, sans-serif;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+  text-align:center;
+}
+.loader {
+  max-width:400px;
+  padding:40px 30px;
+}
+.spinner {
+  width:48px;
+  height:48px;
+  border:3px solid rgba(0,179,126,0.2);
+  border-top-color:#00B37E;
+  border-radius:50%;
+  margin:0 auto 24px;
+  animation:spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform:rotate(360deg); } }
+h1 {
+  font-size:1.3rem;
+  font-weight:700;
+  margin-bottom:12px;
+  letter-spacing:-0.02em;
+}
+p {
+  color:#A0A0C0;
+  font-size:0.92rem;
+  line-height:1.5;
+}
+.fallback {
+  margin-top:28px;
+}
+.fallback a {
+  display:inline-block;
+  background:#25D366;
+  color:#fff;
+  padding:14px 28px;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:700;
+  font-size:0.92rem;
+}
+</style>
+</head>
+<body>
+
+<!-- GTM noscript -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K2HT6HBX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<div class="loader">
+  <div class="spinner"></div>
+  <h1>Abrindo WhatsApp...</h1>
+  <p>Você está sendo redirecionado para o time do André Franco.</p>
+  <div class="fallback">
+    <a href="#" id="wa-link">Clique aqui se não redirecionar</a>
+  </div>
+</div>
+
+<script>
+// Mensagem WhatsApp com ref único do e-book
+var WA_PHONE = '5521965622891';
+var WA_TEXT = 'Vim do webinar do André e quero minha análise de carteira. (ref: ebook-08abr)';
+var WA_URL = 'https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(WA_TEXT);
+
+// 1. Disparar evento no dataLayer (GTM → Pixel + GA4 + CAPI)
+window.dataLayer = window.dataLayer || [];
+window.dataLayer.push({
+  event: 'ebook_cta_click',
+  cta_id: 'ebook_whatsapp',
+  source: 'ebook_pdf',
+  campaign: 'pos_webinar_1milhao',
+  medium: 'pdf'
+});
+
+// 2. Enviar conversion para RD Station (lead engagement)
+// Não tem form, não precisa email. Só registramos o clique como evento
+try {
+  var eventId = 'ebook_click_' + Date.now() + '_' + Math.random().toString(36).slice(2, 9);
+  window.dataLayer.push({
+    event: 'generate_lead_intent',
+    form_id: 'ebook_cta_whatsapp',
+    event_id: eventId
+  });
+} catch(e) {}
+
+// 3. Setar link de fallback
+document.getElementById('wa-link').href = WA_URL;
+
+// 4. Redirecionar automaticamente após 400ms (tempo para GTM disparar)
+setTimeout(function() {
+  window.location.href = WA_URL;
+}, 400);
+</script>
+</body>
+</html>
