@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Funil CRM — Boost Research</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#000; --bg2:#0A0A14; --bg3:#0D1020;
+  --green:#00B37E; --green-bright:#00D195; --green-dim:rgba(0,179,126,.12);
+  --white:#FFF; --gray:#A0A0C0; --gray-dim:#3A3A5C;
+  --red:#FF4444; --yellow:#FFB347; --blue:#4FC3F7;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;min-height:100vh;line-height:1.5}
+.container{max-width:1400px;margin:0 auto;padding:32px 24px}
+header{border-bottom:1px solid var(--gray-dim);padding-bottom:24px;margin-bottom:32px}
+header h1{font-size:28px;font-weight:800;margin-bottom:4px}
+header .sub{color:var(--gray);font-size:14px}
+.back{color:var(--green);text-decoration:none;font-size:13px;display:inline-block;margin-bottom:16px}
+.back:hover{text-decoration:underline}
+.refresh-info{color:var(--gray);font-size:12px;margin-top:8px}
+.refresh-btn{background:var(--green-dim);color:var(--green);border:1px solid var(--green);padding:6px 14px;border-radius:8px;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;margin-left:12px}
+.refresh-btn:hover{background:var(--green);color:var(--bg)}
+
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:32px}
+.stat{background:var(--bg2);border:1px solid var(--gray-dim);border-radius:12px;padding:20px}
+.stat .label{color:var(--gray);font-size:12px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.stat .value{font-size:32px;font-weight:800;color:var(--white)}
+.stat .value.green{color:var(--green-bright)}
+.stat .value.red{color:var(--red)}
+.stat .value.yellow{color:var(--yellow)}
+.stat .sub{color:var(--gray);font-size:11px;margin-top:4px}
+
+.section{background:var(--bg2);border:1px solid var(--gray-dim);border-radius:12px;padding:24px;margin-bottom:24px}
+.section h2{font-size:18px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.section h2::before{content:'';display:inline-block;width:4px;height:18px;background:var(--green);border-radius:2px}
+
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:10px 12px;color:var(--gray);font-weight:600;border-bottom:1px solid var(--gray-dim);text-transform:uppercase;font-size:11px;letter-spacing:.3px}
+td{padding:12px;border-bottom:1px solid rgba(58,58,92,.3)}
+tr:hover td{background:rgba(0,179,126,.03)}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+td.money{text-align:right;color:var(--green-bright);font-weight:600;font-variant-numeric:tabular-nums}
+td.stage-bar{padding:0}
+.bar-wrap{padding:8px 12px}
+.bar{height:6px;background:rgba(0,179,126,.15);border-radius:3px;overflow:hidden}
+.bar-fill{height:100%;background:linear-gradient(90deg,var(--green) 0%,var(--green-bright) 100%);border-radius:3px;transition:width .3s}
+
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.badge-open{background:rgba(79,195,247,.15);color:var(--blue);border:1px solid rgba(79,195,247,.3)}
+.badge-won{background:rgba(0,179,126,.15);color:var(--green-bright);border:1px solid rgba(0,179,126,.3)}
+.badge-lost{background:rgba(255,68,68,.15);color:var(--red);border:1px solid rgba(255,68,68,.3)}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:800px){.two-col{grid-template-columns:1fr}}
+
+.loading{text-align:center;padding:40px;color:var(--gray)}
+.loading::before{content:'';display:inline-block;width:16px;height:16px;border:2px solid var(--green-dim);border-top-color:var(--green);border-radius:50%;animation:spin 1s linear infinite;margin-right:8px;vertical-align:middle}
+@keyframes spin{to{transform:rotate(360deg)}}
+.error{background:rgba(255,68,68,.1);border:1px solid var(--red);color:var(--red);padding:16px;border-radius:8px;margin-bottom:16px}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <a href="../../index.html" class="back">← Voltar ao painel</a>
+  <h1>Funil de Vendas — CRM</h1>
+  <div class="sub">Dados em tempo real do RD Station CRM via Supabase. Sincronizado diariamente às 05:00 BRT.</div>
+  <div class="refresh-info">
+    <span id="lastUpdate">Carregando...</span>
+    <button class="refresh-btn" onclick="loadAll()">↻ Atualizar</button>
+  </div>
+</header>
+
+<div id="error" class="error" style="display:none"></div>
+
+<!-- Stats topo -->
+<div class="stats-row">
+  <div class="stat">
+    <div class="label">Total de Deals</div>
+    <div class="value" id="statTotal">—</div>
+    <div class="sub">No CRM agora</div>
+  </div>
+  <div class="stat">
+    <div class="label">Abertos</div>
+    <div class="value" id="statOpen">—</div>
+    <div class="sub">No pipeline ativo</div>
+  </div>
+  <div class="stat">
+    <div class="label">Ganhos</div>
+    <div class="value green" id="statWon">—</div>
+    <div class="sub" id="statWonAmount">—</div>
+  </div>
+  <div class="stat">
+    <div class="label">Perdidos</div>
+    <div class="value red" id="statLost">—</div>
+    <div class="sub">Ou fora do ICP</div>
+  </div>
+  <div class="stat">
+    <div class="label">Taxa Conversão</div>
+    <div class="value yellow" id="statConv">—</div>
+    <div class="sub">Ganhos / Total</div>
+  </div>
+</div>
+
+<!-- Distribuição por estágio -->
+<div class="section">
+  <h2>Distribuição por Estágio</h2>
+  <div id="stagesTable" class="loading">Carregando...</div>
+</div>
+
+<div class="two-col">
+  <!-- Deals ganhos -->
+  <div class="section">
+    <h2>Últimos Deals Ganhos</h2>
+    <div id="wonTable" class="loading">Carregando...</div>
+  </div>
+
+  <!-- Maiores deals abertos -->
+  <div class="section">
+    <h2>Top 10 Deals Abertos</h2>
+    <div id="topOpenTable" class="loading">Carregando...</div>
+  </div>
+</div>
+
+<!-- Por pipeline -->
+<div class="section">
+  <h2>Por Pipeline</h2>
+  <div id="pipelinesTable" class="loading">Carregando...</div>
+</div>
+
+</div>
+
+<script>
+// Supabase config (publishable key — safe for client-side)
+const SB_URL = 'https://dvvfnrdvhkjfovhfqiow.supabase.co';
+const SB_KEY = 'sb_publishable_QS8cCW6-peHSCNoyxInR_g_or1mhoRb';
+
+async function sbFetch(path) {
+  const r = await fetch(`${SB_URL}/rest/v1/${path}`, {
+    headers: {
+      'apikey': SB_KEY,
+      'Authorization': `Bearer ${SB_KEY}`,
+    }
+  });
+  if (!r.ok) throw new Error(`${r.status}: ${await r.text()}`);
+  return r.json();
+}
+
+function fmt(n) {
+  return new Intl.NumberFormat('pt-BR').format(n);
+}
+function money(n) {
+  return 'R$ ' + new Intl.NumberFormat('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2}).format(n || 0);
+}
+function fmtDate(iso) {
+  if (!iso) return '—';
+  return new Date(iso).toLocaleDateString('pt-BR');
+}
+
+async function loadStats() {
+  const deals = await sbFetch('deals?select=deal_status,amount_total');
+  const total = deals.length;
+  const open = deals.filter(d => d.deal_status === 'open').length;
+  const won = deals.filter(d => d.deal_status === 'won').length;
+  const lost = deals.filter(d => d.deal_status === 'lost').length;
+  const wonAmount = deals.filter(d => d.deal_status === 'won').reduce((s,d)=>s+Number(d.amount_total||0), 0);
+  const conv = total > 0 ? (won / total * 100).toFixed(2) : 0;
+
+  document.getElementById('statTotal').textContent = fmt(total);
+  document.getElementById('statOpen').textContent = fmt(open);
+  document.getElementById('statWon').textContent = fmt(won);
+  document.getElementById('statWonAmount').textContent = money(wonAmount);
+  document.getElementById('statLost').textContent = fmt(lost);
+  document.getElementById('statConv').textContent = conv + '%';
+}
+
+async function loadStages() {
+  const deals = await sbFetch('deals?select=stage_name,deal_status,amount_total');
+  const stages = {};
+  deals.forEach(d => {
+    const k = d.stage_name || '(sem estágio)';
+    if (!stages[k]) stages[k] = {total:0, open:0, won:0, lost:0, amount:0};
+    stages[k].total++;
+    stages[k][d.deal_status]++;
+    stages[k].amount += Number(d.amount_total || 0);
+  });
+  const rows = Object.entries(stages).sort((a,b)=>b[1].total-a[1].total);
+  const max = Math.max(...rows.map(r=>r[1].total));
+
+  let html = '<table><thead><tr><th>Estágio</th><th>Total</th><th style="width:30%">Distribuição</th><th>Abertos</th><th>Ganhos</th><th>Perdidos</th><th>Valor total</th></tr></thead><tbody>';
+  rows.forEach(([name, s]) => {
+    const pct = max > 0 ? (s.total/max*100) : 0;
+    html += `<tr>
+      <td><strong>${name}</strong></td>
+      <td class="num">${fmt(s.total)}</td>
+      <td class="stage-bar"><div class="bar-wrap"><div class="bar"><div class="bar-fill" style="width:${pct}%"></div></div></div></td>
+      <td class="num">${fmt(s.open||0)}</td>
+      <td class="num" style="color:var(--green-bright)">${fmt(s.won||0)}</td>
+      <td class="num" style="color:var(--red)">${fmt(s.lost||0)}</td>
+      <td class="money">${money(s.amount)}</td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+  document.getElementById('stagesTable').innerHTML = html;
+}
+
+async function loadWonDeals() {
+  const deals = await sbFetch('deals?deal_status=eq.won&order=closed_at.desc&limit=20&select=name,contact_email,amount_total,closed_at,owner_name,pipeline_name');
+  if (deals.length === 0) {
+    document.getElementById('wonTable').innerHTML = '<div style="color:var(--gray);padding:12px">Nenhum deal ganho ainda.</div>';
+    return;
+  }
+  let html = '<table><thead><tr><th>Nome</th><th>Valor</th><th>Data</th><th>Pipeline</th></tr></thead><tbody>';
+  deals.forEach(d => {
+    html += `<tr>
+      <td><strong>${d.name || '—'}</strong><br><span style="color:var(--gray);font-size:11px">${d.contact_email || ''}</span></td>
+      <td class="money">${money(d.amount_total)}</td>
+      <td>${fmtDate(d.closed_at)}</td>
+      <td style="color:var(--gray);font-size:12px">${d.pipeline_name || '—'}</td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+  document.getElementById('wonTable').innerHTML = html;
+}
+
+async function loadTopOpen() {
+  const deals = await sbFetch('deals?deal_status=eq.open&order=amount_total.desc.nullslast&limit=10&select=name,contact_email,amount_total,stage_name,owner_name');
+  if (deals.length === 0) {
+    document.getElementById('topOpenTable').innerHTML = '<div style="color:var(--gray);padding:12px">Nenhum deal aberto.</div>';
+    return;
+  }
+  let html = '<table><thead><tr><th>Nome</th><th>Valor</th><th>Estágio</th></tr></thead><tbody>';
+  deals.forEach(d => {
+    html += `<tr>
+      <td><strong>${d.name || '—'}</strong><br><span style="color:var(--gray);font-size:11px">${d.contact_email || ''}</span></td>
+      <td class="money">${money(d.amount_total)}</td>
+      <td style="color:var(--gray);font-size:12px">${d.stage_name || '—'}</td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+  document.getElementById('topOpenTable').innerHTML = html;
+}
+
+async function loadPipelines() {
+  const deals = await sbFetch('deals?select=pipeline_name,deal_status,amount_total');
+  const pipes = {};
+  deals.forEach(d => {
+    const k = d.pipeline_name || '(sem pipeline)';
+    if (!pipes[k]) pipes[k] = {total:0, open:0, won:0, lost:0, amount:0, amountWon:0};
+    pipes[k].total++;
+    pipes[k][d.deal_status]++;
+    pipes[k].amount += Number(d.amount_total || 0);
+    if (d.deal_status === 'won') pipes[k].amountWon += Number(d.amount_total || 0);
+  });
+  const rows = Object.entries(pipes).sort((a,b)=>b[1].total-a[1].total);
+  let html = '<table><thead><tr><th>Pipeline</th><th>Total</th><th>Abertos</th><th>Ganhos</th><th>Perdidos</th><th>Taxa Conv</th><th>Receita</th></tr></thead><tbody>';
+  rows.forEach(([name, s]) => {
+    const conv = s.total > 0 ? (s.won/s.total*100).toFixed(1) : 0;
+    html += `<tr>
+      <td><strong>${name}</strong></td>
+      <td class="num">${fmt(s.total)}</td>
+      <td class="num"><span class="badge badge-open">${fmt(s.open||0)}</span></td>
+      <td class="num"><span class="badge badge-won">${fmt(s.won||0)}</span></td>
+      <td class="num"><span class="badge badge-lost">${fmt(s.lost||0)}</span></td>
+      <td class="num" style="color:var(--yellow)">${conv}%</td>
+      <td class="money">${money(s.amountWon)}</td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+  document.getElementById('pipelinesTable').innerHTML = html;
+}
+
+async function loadAll() {
+  document.getElementById('error').style.display = 'none';
+  document.getElementById('lastUpdate').textContent = 'Carregando...';
+  try {
+    await Promise.all([
+      loadStats(),
+      loadStages(),
+      loadWonDeals(),
+      loadTopOpen(),
+      loadPipelines()
+    ]);
+    document.getElementById('lastUpdate').textContent = 'Última atualização: ' + new Date().toLocaleString('pt-BR');
+  } catch (e) {
+    console.error(e);
+    document.getElementById('error').textContent = 'Erro ao carregar dados: ' + e.message;
+    document.getElementById('error').style.display = 'block';
+    document.getElementById('lastUpdate').textContent = 'Erro ao carregar';
+  }
+}
+
+loadAll();
+// Auto-refresh a cada 5 minutos
+setInterval(loadAll, 5 * 60 * 1000);
+</script>
+</body>
+</html>
