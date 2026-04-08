@@ -463,8 +463,8 @@ body.is-post .post-webinar.grid { display:grid; }
         </form>
 
         <div class="form-success" id="form-success">
-          <div class="pre-webinar">✓ Inscrição confirmada! Verifique seu e-mail para receber o link do webinar.</div>
-          <div class="post-webinar">✓ Cadastro confirmado! Seu e-book está pronto para download abaixo.</div>
+          <span class="pre-webinar">✓ Inscrição confirmada! Verifique seu e-mail para receber o link do webinar.</span>
+          <span class="post-webinar">✓ Obrigado! Seu e-book está pronto para download abaixo.</span>
         </div>
 
         <div class="download-box" id="download-box">
@@ -754,16 +754,12 @@ body.is-post .post-webinar.grid { display:grid; }
 </a>
 
 <script>
-// ===== Modo pré/pós webinar =====
-// Webinar: 08/abr/2026 20h00 BRT → switch às 21h30 (90min depois = fim do webinar)
-var WEBINAR_END = new Date('2026-04-08T21:30:00-03:00').getTime();
-var isPostWebinar = new Date().getTime() >= WEBINAR_END;
-
-// Query param override para testes: ?mode=post ou ?mode=pre
+// ===== Modo pós-webinar (default) =====
+// Decisão 07/abr: LP será usada APENAS após o webinar, então o default é pós-webinar.
+// Query param override: ?mode=pre para voltar ao modo pré-webinar (countdown + YouTube banner)
 var urlParams = new URLSearchParams(window.location.search);
 var modeOverride = urlParams.get('mode');
-if (modeOverride === 'post') isPostWebinar = true;
-if (modeOverride === 'pre') isPostWebinar = false;
+var isPostWebinar = modeOverride !== 'pre';
 
 document.body.classList.add(isPostWebinar ? 'is-post' : 'is-pre');
 
