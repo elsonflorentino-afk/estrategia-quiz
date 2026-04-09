@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Qualificação de Leads — Boost Research</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#000; --bg2:#0A0A14; --bg3:#0D1020;
+  --green:#00B37E; --green-bright:#00D195; --green-dim:rgba(0,179,126,.12);
+  --white:#FFF; --gray:#A0A0C0; --gray-dim:#3A3A5C;
+  --red:#FF4444; --red-dim:rgba(255,68,68,.12);
+  --yellow:#FFB347; --blue:#4FC3F7;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--white);font-family:'Inter',sans-serif;min-height:100vh;line-height:1.5}
+.container{max-width:1400px;margin:0 auto;padding:32px 24px}
+header{border-bottom:1px solid var(--gray-dim);padding-bottom:24px;margin-bottom:32px}
+header h1{font-size:28px;font-weight:800;margin-bottom:4px}
+header .sub{color:var(--gray);font-size:14px}
+.back{color:var(--green);text-decoration:none;font-size:13px;display:inline-block;margin-bottom:16px}
+.back:hover{text-decoration:underline}
+.refresh-info{color:var(--gray);font-size:12px;margin-top:8px}
+.refresh-btn{background:var(--green-dim);color:var(--green);border:1px solid var(--green);padding:6px 14px;border-radius:8px;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;margin-left:12px}
+.refresh-btn:hover{background:var(--green);color:var(--bg)}
+
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:32px}
+.stat{background:var(--bg2);border:1px solid var(--gray-dim);border-radius:12px;padding:20px}
+.stat .label{color:var(--gray);font-size:12px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.stat .value{font-size:32px;font-weight:800;color:var(--white)}
+.stat .value.green{color:var(--green-bright)}
+.stat .value.red{color:var(--red)}
+.stat .value.yellow{color:var(--yellow)}
+.stat .value.blue{color:var(--blue)}
+.stat .sub{color:var(--gray);font-size:11px;margin-top:4px}
+
+.section{background:var(--bg2);border:1px solid var(--gray-dim);border-radius:12px;padding:24px;margin-bottom:24px}
+.section h2{font-size:18px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.section h2::before{content:'';display:inline-block;width:4px;height:18px;background:var(--green);border-radius:2px}
+.section .section-sub{color:var(--gray);font-size:12px;margin-bottom:16px;margin-left:12px}
+
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:10px 12px;color:var(--gray);font-weight:600;border-bottom:1px solid var(--gray-dim);text-transform:uppercase;font-size:11px;letter-spacing:.3px;white-space:nowrap}
+td{padding:12px;border-bottom:1px solid rgba(58,58,92,.3)}
+tr:hover td{background:rgba(0,179,126,.03)}
+td.num{text-align:right;font-variant-numeric:tabular-nums}
+td.pct{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+td.pct.good{color:var(--green-bright)}
+td.pct.mid{color:var(--yellow)}
+td.pct.bad{color:var(--red)}
+td.campanha{font-family:'SF Mono',Monaco,monospace;font-size:11px;color:var(--gray);max-width:350px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+.bar-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.bar-row .bar-label{flex:0 0 180px;font-size:12px;color:var(--gray)}
+.bar-row .bar-track{flex:1;height:22px;background:rgba(58,58,92,.3);border-radius:4px;overflow:hidden;position:relative}
+.bar-row .bar-fill{height:100%;border-radius:4px;transition:width .6s ease}
+.bar-row .bar-fill.qualif{background:linear-gradient(90deg,var(--green) 0%,var(--green-bright) 100%)}
+.bar-row .bar-fill.desq{background:linear-gradient(90deg,#555 0%,#777 100%)}
+.bar-row .bar-value{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:11px;font-weight:600;color:var(--white);text-shadow:0 1px 2px rgba(0,0,0,.8)}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:900px){.two-col{grid-template-columns:1fr}}
+
+.chart-wrap{width:100%;height:280px;display:flex;align-items:flex-end;gap:2px;padding-top:20px;border-bottom:1px solid var(--gray-dim);padding-bottom:4px;position:relative}
+.chart-wrap .col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;min-width:0;position:relative;gap:1px}
+.chart-wrap .col .seg-q{background:var(--green-bright);border-radius:2px 2px 0 0}
+.chart-wrap .col .seg-d{background:rgba(160,160,192,.25);border-radius:2px 2px 0 0}
+.chart-wrap .col:hover .seg-q{background:var(--green-bright);filter:brightness(1.2)}
+.chart-wrap .col:hover .seg-d{background:rgba(160,160,192,.5)}
+.chart-labels{display:flex;gap:2px;margin-top:6px}
+.chart-labels .lbl{flex:1;font-size:9px;color:var(--gray);text-align:center;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chart-tooltip{position:absolute;background:var(--bg3);border:1px solid var(--gray-dim);padding:6px 10px;border-radius:6px;font-size:11px;pointer-events:none;z-index:10;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.5)}
+.chart-legend{display:flex;gap:16px;margin-top:8px;font-size:11px;color:var(--gray)}
+.chart-legend .dot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:middle}
+.chart-legend .dot.q{background:var(--green-bright)}
+.chart-legend .dot.d{background:rgba(160,160,192,.4)}
+
+.loading{text-align:center;padding:40px;color:var(--gray)}
+.loading::before{content:'';display:inline-block;width:16px;height:16px;border:2px solid var(--green-dim);border-top-color:var(--green);border-radius:50%;animation:spin 1s linear infinite;margin-right:8px;vertical-align:middle}
+@keyframes spin{to{transform:rotate(360deg)}}
+.error{background:rgba(255,68,68,.1);border:1px solid var(--red);color:var(--red);padding:16px;border-radius:8px;margin-bottom:16px}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <a href="../../index.html" class="back">← Voltar ao painel</a>
+  <h1>Qualificação de Leads — Boost Research</h1>
+  <div class="sub">Qualificados (≥R$50k em cripto OU tradicional) vs desqualificados. Dados do RD Station via Supabase.</div>
+  <div class="refresh-info">
+    <span id="lastUpdate">Carregando...</span>
+    <button class="refresh-btn" onclick="loadAll()">↻ Atualizar</button>
+  </div>
+</header>
+
+<div id="error" class="error" style="display:none"></div>
+
+<!-- Stats topo -->
+<div class="stats-row">
+  <div class="stat">
+    <div class="label">Total de Leads</div>
+    <div class="value" id="statTotal">—</div>
+    <div class="sub" id="statRange">—</div>
+  </div>
+  <div class="stat">
+    <div class="label">Qualificados (≥R$50k)</div>
+    <div class="value green" id="statQualif">—</div>
+    <div class="sub" id="statQualifPct">—</div>
+  </div>
+  <div class="stat">
+    <div class="label">≥R$100k Cripto</div>
+    <div class="value blue" id="stat100Cripto">—</div>
+    <div class="sub">Alto valor cripto</div>
+  </div>
+  <div class="stat">
+    <div class="label">≥R$100k Tradicional</div>
+    <div class="value yellow" id="stat100Trad">—</div>
+    <div class="sub">Alto valor mercado</div>
+  </div>
+  <div class="stat">
+    <div class="label">Sem Atribuição (UTM)</div>
+    <div class="value red" id="statSemUtm">—</div>
+    <div class="sub" id="statSemUtmPct">—</div>
+  </div>
+</div>
+
+<!-- Perfil cripto -->
+<div class="two-col">
+  <div class="section">
+    <h2>Distribuição por Patrimônio Cripto</h2>
+    <div class="section-sub">Declarado no formulário da LP</div>
+    <div id="perfilCripto"><div class="loading">Carregando...</div></div>
+  </div>
+
+  <div class="section">
+    <h2>Distribuição por Patrimônio Tradicional</h2>
+    <div class="section-sub">Mercado tradicional (Tesouro, CDI, ações, fundos)</div>
+    <div id="perfilTrad"><div class="loading">Carregando...</div></div>
+  </div>
+</div>
+
+<!-- Evolução diária -->
+<div class="section">
+  <h2>Evolução Diária (últimos 30 dias)</h2>
+  <div class="section-sub">Leads qualificados (≥R$50k) vs desqualificados por dia</div>
+  <div class="chart-wrap" id="chartWrap"><div class="loading">Carregando...</div></div>
+  <div class="chart-labels" id="chartLabels"></div>
+  <div class="chart-legend">
+    <span><span class="dot q"></span>Qualificados</span>
+    <span><span class="dot d"></span>Desqualificados</span>
+  </div>
+</div>
+
+<!-- Campanhas -->
+<div class="section">
+  <h2>Performance por Campanha</h2>
+  <div class="section-sub">Só campanhas com UTM tracking funcionando</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Campanha</th>
+        <th class="num">Leads</th>
+        <th class="num">Qualif</th>
+        <th class="num">Taxa %</th>
+        <th class="num">≥R$100k</th>
+        <th class="num">Score médio</th>
+      </tr>
+    </thead>
+    <tbody id="tblCampanhas"><tr><td colspan="6" class="loading">Carregando...</td></tr></tbody>
+  </table>
+</div>
+
+<!-- Top criativos -->
+<div class="section">
+  <h2>Top Criativos por Taxa de Qualificação</h2>
+  <div class="section-sub">Mínimo 3 leads pra aparecer. Ordenado por % qualif.</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Criativo (first_content)</th>
+        <th class="num">Leads</th>
+        <th class="num">Qualif</th>
+        <th class="num">Taxa %</th>
+        <th class="num">≥R$100k</th>
+      </tr>
+    </thead>
+    <tbody id="tblCriativos"><tr><td colspan="5" class="loading">Carregando...</td></tr></tbody>
+  </table>
+</div>
+
+</div>
+
+<script>
+const SB = 'https://dvvfnrdvhkjfovhfqiow.supabase.co';
+const KEY = 'sb_publishable_QS8cCW6-peHSCNoyxInR_g_or1mhoRb';
+const H = { apikey: KEY, Authorization: 'Bearer ' + KEY };
+
+async function fetchAll(path) {
+  const pageSize = 1000;
+  let offset = 0;
+  let all = [];
+  while (true) {
+    const url = `${SB}${path}${path.includes('?')?'&':'?'}limit=${pageSize}&offset=${offset}`;
+    const r = await fetch(url, { headers: H });
+    if (!r.ok) throw new Error(`HTTP ${r.status}: ${await r.text()}`);
+    const data = await r.json();
+    all = all.concat(data);
+    if (data.length < pageSize) break;
+    offset += pageSize;
+  }
+  return all;
+}
+
+function fmtInt(n) { return (n ?? 0).toLocaleString('pt-BR'); }
+function fmtPct(v) { return (v ?? 0).toFixed(1) + '%'; }
+function pctClass(v) { return v >= 30 ? 'good' : (v >= 10 ? 'mid' : 'bad'); }
+
+function faixaCripto(k) {
+  if (k == null) return '07 — Não respondeu';
+  if (k >= 1000) return '01 — ≥R$1M';
+  if (k >= 500)  return '02 — R$500k-1M';
+  if (k >= 200)  return '03 — R$200-500k';
+  if (k >= 100)  return '04 — R$100-200k';
+  if (k >= 50)   return '05 — R$50-100k';
+  if (k >= 10)   return '06 — R$10-50k';
+  return '07 — <R$10k';
+}
+
+function renderStats(leads) {
+  const total = leads.length;
+  const qualif = leads.filter(l => l.is_qualified).length;
+  const c100 = leads.filter(l => (l.patrimonio_cripto_min_k ?? 0) >= 100).length;
+  const t100 = leads.filter(l => (l.patrimonio_tradicional_min_k ?? 0) >= 100).length;
+  const semUtm = leads.filter(l => !l.first_campaign).length;
+
+  document.getElementById('statTotal').textContent = fmtInt(total);
+  document.getElementById('statQualif').textContent = fmtInt(qualif);
+  document.getElementById('statQualifPct').textContent = fmtPct(qualif/total*100) + ' do total';
+  document.getElementById('stat100Cripto').textContent = fmtInt(c100);
+  document.getElementById('stat100Trad').textContent = fmtInt(t100);
+  document.getElementById('statSemUtm').textContent = fmtInt(semUtm);
+  document.getElementById('statSemUtmPct').textContent = fmtPct(semUtm/total*100) + ' dos leads';
+
+  const dates = leads.map(l => l.created_at).filter(Boolean).sort();
+  if (dates.length) {
+    document.getElementById('statRange').textContent = `${dates[0].slice(0,10)} → ${dates[dates.length-1].slice(0,10)}`;
+  }
+}
+
+function renderPerfil(containerId, leads, field) {
+  const counts = {};
+  leads.forEach(l => {
+    const f = faixaCripto(l[field]);
+    counts[f] = (counts[f] || 0) + 1;
+  });
+  const total = leads.length;
+  const ordered = Object.keys(counts).sort();
+  const max = Math.max(...Object.values(counts), 1);
+
+  const html = ordered.map(f => {
+    const n = counts[f];
+    const pct = n/total*100;
+    const w = n/max*100;
+    const isQualif = ['01','02','03','04','05'].includes(f.split(' —')[0]);
+    return `
+      <div class="bar-row">
+        <div class="bar-label">${f.replace(/^\d+\s—\s/,'')}</div>
+        <div class="bar-track">
+          <div class="bar-fill ${isQualif?'qualif':'desq'}" style="width:${w}%"></div>
+          <div class="bar-value">${n} (${pct.toFixed(0)}%)</div>
+        </div>
+      </div>`;
+  }).join('');
+
+  document.getElementById(containerId).innerHTML = html;
+}
+
+function renderChart(leads) {
+  // Agrupa por dia nos últimos 30 dias
+  const hoje = new Date();
+  const dias = [];
+  for (let i = 29; i >= 0; i--) {
+    const d = new Date(hoje);
+    d.setDate(d.getDate() - i);
+    dias.push(d.toISOString().slice(0,10));
+  }
+  const byDay = {};
+  dias.forEach(d => byDay[d] = { q: 0, d: 0 });
+
+  leads.forEach(l => {
+    if (!l.created_at) return;
+    const d = l.created_at.slice(0,10);
+    if (byDay[d]) {
+      if (l.is_qualified) byDay[d].q++;
+      else byDay[d].d++;
+    }
+  });
+
+  const max = Math.max(...Object.values(byDay).map(v => v.q + v.d), 1);
+  const wrap = document.getElementById('chartWrap');
+  wrap.innerHTML = '';
+
+  dias.forEach(d => {
+    const col = document.createElement('div');
+    col.className = 'col';
+    const v = byDay[d];
+    const totalPx = 220;
+    const hQ = v.q/max * totalPx;
+    const hD = v.d/max * totalPx;
+    col.innerHTML = `
+      ${v.d > 0 ? `<div class="seg-d" style="height:${hD}px"></div>` : ''}
+      ${v.q > 0 ? `<div class="seg-q" style="height:${hQ}px"></div>` : ''}
+    `;
+    col.title = `${d}\n${v.q} qualif + ${v.d} desqualif = ${v.q+v.d} total`;
+    wrap.appendChild(col);
+  });
+
+  const lbls = document.getElementById('chartLabels');
+  lbls.innerHTML = dias.map((d,i) => {
+    const show = (i%5 === 0 || i === dias.length-1);
+    return `<div class="lbl">${show ? d.slice(5) : ''}</div>`;
+  }).join('');
+}
+
+function renderCampanhas(leads) {
+  const map = {};
+  leads.forEach(l => {
+    const k = l.first_campaign;
+    if (!k) return;
+    if (!map[k]) map[k] = { leads:0, qualif:0, c100:0, score:0 };
+    map[k].leads++;
+    if (l.is_qualified) map[k].qualif++;
+    if ((l.patrimonio_cripto_min_k ?? 0) >= 100) map[k].c100++;
+    map[k].score += (l.score || 0);
+  });
+  const rows = Object.entries(map)
+    .map(([k,v]) => ({ k, ...v, taxa: v.leads ? v.qualif/v.leads*100 : 0, scoreMed: v.leads ? v.score/v.leads : 0 }))
+    .sort((a,b) => b.leads - a.leads);
+
+  const html = rows.map(r => `
+    <tr>
+      <td class="campanha" title="${r.k}">${r.k}</td>
+      <td class="num">${fmtInt(r.leads)}</td>
+      <td class="num">${fmtInt(r.qualif)}</td>
+      <td class="pct ${pctClass(r.taxa)}">${fmtPct(r.taxa)}</td>
+      <td class="num">${fmtInt(r.c100)}</td>
+      <td class="num">${r.scoreMed.toFixed(1)}</td>
+    </tr>
+  `).join('');
+
+  document.getElementById('tblCampanhas').innerHTML = html || '<tr><td colspan="6" class="loading">Sem dados</td></tr>';
+}
+
+function renderCriativos(leads) {
+  const map = {};
+  leads.forEach(l => {
+    const k = l.first_content;
+    if (!k) return;
+    if (!map[k]) map[k] = { leads:0, qualif:0, c100:0 };
+    map[k].leads++;
+    if (l.is_qualified) map[k].qualif++;
+    if ((l.patrimonio_cripto_min_k ?? 0) >= 100) map[k].c100++;
+  });
+  const rows = Object.entries(map)
+    .filter(([,v]) => v.leads >= 3)
+    .map(([k,v]) => ({ k, ...v, taxa: v.leads ? v.qualif/v.leads*100 : 0 }))
+    .sort((a,b) => b.taxa - a.taxa || b.leads - a.leads);
+
+  const html = rows.map(r => `
+    <tr>
+      <td class="campanha" title="${r.k}">${r.k}</td>
+      <td class="num">${fmtInt(r.leads)}</td>
+      <td class="num">${fmtInt(r.qualif)}</td>
+      <td class="pct ${pctClass(r.taxa)}">${fmtPct(r.taxa)}</td>
+      <td class="num">${fmtInt(r.c100)}</td>
+    </tr>
+  `).join('');
+
+  document.getElementById('tblCriativos').innerHTML = html || '<tr><td colspan="5" class="loading">Sem dados</td></tr>';
+}
+
+async function loadLeads() {
+  // Tenta view live (quando existir). Fallback: seed.json estático.
+  try {
+    const r = await fetch(`${SB}/rest/v1/v_leads_qualificacao?select=*&limit=5000`, { headers: H });
+    if (r.ok) {
+      const data = await r.json();
+      if (data.length > 0) {
+        document.getElementById('lastUpdate').textContent = 'Fonte: live (view Supabase) — ';
+        return data;
+      }
+    }
+  } catch (e) { console.warn('view live indisponível, caindo pro seed', e); }
+  // Fallback: seed.json local
+  const r2 = await fetch('seed.json');
+  if (!r2.ok) throw new Error('seed.json não encontrado e view ainda não criada');
+  document.getElementById('lastUpdate').textContent = 'Fonte: seed.json estático — ';
+  return await r2.json();
+}
+
+async function loadAll() {
+  try {
+    document.getElementById('error').style.display = 'none';
+    const leads = await loadLeads();
+    renderStats(leads);
+    renderPerfil('perfilCripto', leads, 'patrimonio_cripto_min_k');
+    renderPerfil('perfilTrad', leads, 'patrimonio_tradicional_min_k');
+    renderChart(leads);
+    renderCampanhas(leads);
+    renderCriativos(leads);
+
+    const now = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
+    document.getElementById('lastUpdate').textContent += `atualizado em ${now}`;
+  } catch (e) {
+    console.error(e);
+    document.getElementById('error').textContent = 'Erro carregando dados: ' + e.message;
+    document.getElementById('error').style.display = 'block';
+  }
+}
+
+loadAll();
+setInterval(loadAll, 5 * 60 * 1000);  // 5 min auto-refresh
+</script>
+</body>
+</html>
