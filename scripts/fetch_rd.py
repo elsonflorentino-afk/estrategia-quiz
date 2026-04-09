@@ -5,9 +5,11 @@ Access token expira em 24h — renovado automaticamente via refresh_token.
 """
 import json, urllib.request, urllib.parse, ssl, os, sys
 
-RD_CLIENT_ID     = os.environ.get('RD_CLIENT_ID',     '5c506141-8f20-4373-b2e2-86fd7bd745f8')
-RD_CLIENT_SECRET = os.environ.get('RD_CLIENT_SECRET', 'e6be7766e7d745cf826056760b64de87')
-RD_REFRESH_TOKEN = os.environ.get('RD_REFRESH_TOKEN', 'MHW2lbHRdqVC9BxmiRcYnSTnE5opqarGBZEr9DZ5BWg')
+RD_CLIENT_ID     = os.environ.get('RD_CLIENT_ID',     '')
+RD_CLIENT_SECRET = os.environ.get('RD_CLIENT_SECRET', '')
+RD_REFRESH_TOKEN = os.environ.get('RD_REFRESH_TOKEN', '')
+if not all([RD_CLIENT_ID, RD_CLIENT_SECRET, RD_REFRESH_TOKEN]):
+    raise SystemExit('ERRO: defina RD_CLIENT_ID, RD_CLIENT_SECRET e RD_REFRESH_TOKEN no ambiente')
 BASE = 'https://api.rd.services'
 
 ctx = ssl.create_default_context()

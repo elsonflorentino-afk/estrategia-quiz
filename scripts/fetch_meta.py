@@ -6,7 +6,9 @@ Token vitalício — sem refresh necessário.
 import json, urllib.request, urllib.parse, ssl, sys, os
 from datetime import datetime, timedelta
 
-TOKEN = os.environ.get('META_TOKEN', 'EAAUQxcWNmmYBRDpqTZAzAsAVYs4F6ZCwgJACOqZAZCSn8UNvdlo7RTFudLRbHVuMnOKHBSwCBFrn0BAi3x7ueS6metfqZBCiqHVSjTQvY7VBxdb3rcyh7ADH11Q33S8DIJcXSrqwCfer4ZBrPm9i43w1ROjCgOqY0NHkVF4HnW5nEF68pwfqajkKi7TfMOouh4ZCkNtsZCctLoU4HuhkWpUeeyJcYZADHIOsUiNZB6')
+TOKEN = os.environ.get('META_ACCESS_TOKEN') or os.environ.get('META_TOKEN') or ''
+if not TOKEN:
+    raise SystemExit('ERRO: defina META_ACCESS_TOKEN (ou META_TOKEN) no ambiente')
 ACCOUNT = 'act_844208497068966'
 BASE    = 'https://graph.facebook.com/v19.0'
 
