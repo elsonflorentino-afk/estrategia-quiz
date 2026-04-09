@@ -44,7 +44,12 @@ RATE_LIMIT_MS = 120  # ms entre requests RD
 CF_PAT_CRIPTO = 'cf_que_otimo_agora_preciso_entender_qual_seu_patrimonio_ho'
 CF_PAT_TRAD   = 'cf_qual_seu_patrimonio_investido_no_mercado_tradicional'
 CF_INV_CRIPTO = 'cf_voce_ja_possui_investimentos_em_bitcoin_cripto'
-CF_INV_TRAD   = 'cf_voce_investe_no_mercado_tradicional'
+# Nome REAL do field no RD Station (confirmado via GET /contacts/{uuid} em 09/abr/2026).
+# Ignora o nome que a LP tenta enviar — o RD armazena com esse nome aqui.
+# Fallbacks pra histórico de leads de outras LPs/forms.
+CF_INV_TRAD         = 'cf_e_voce_possui_investimentos_no_mercado_tradicional_teso'
+CF_INV_TRAD_LEGACY1 = 'cf_voce_ja_investe_no_mercado_tradicional_tesouro_cdi_a'
+CF_INV_TRAD_LEGACY2 = 'cf_voce_investe_no_mercado_tradicional'
 CF_UTM_SOURCE   = 'cf_utm_source'
 CF_UTM_MEDIUM   = 'cf_utm_medium'
 CF_UTM_CAMPAIGN = 'cf_utm_campaign'
@@ -200,6 +205,11 @@ def map_contact_to_lead(list_contact, detail):
     pat_cripto_k = parse_patrimonio_to_k(pat_cripto_raw)
     pat_trad_k   = parse_patrimonio_to_k(pat_trad_raw)
 
+    # investe_tradicional: tenta nome atual do RD, cai pros legacy
+    inv_trad_raw = (extract_cf(detail, CF_INV_TRAD)
+                    or extract_cf(detail, CF_INV_TRAD_LEGACY1)
+                    or extract_cf(detail, CF_INV_TRAD_LEGACY2))
+
     maior = patrimonio_min_k(pat_cripto_k, pat_trad_k)
     is_qualified = maior >= 50  # ≥R$50k
 
@@ -214,7 +224,7 @@ def map_contact_to_lead(list_contact, detail):
         'investe_cripto': parse_yes_no(extract_cf(detail, CF_INV_CRIPTO)),
         'patrimonio_cripto': pat_cripto_raw or None,
         'patrimonio_cripto_min_k': pat_cripto_k,
-        'investe_tradicional': parse_yes_no(extract_cf(detail, CF_INV_TRAD)),
+        'investe_tradicional': parse_yes_no(inv_trad_raw),
         'patrimonio_tradicional': pat_trad_raw or None,
         'patrimonio_tradicional_min_k': pat_trad_k,
         'first_source':   extract_cf(detail, CF_UTM_SOURCE)   or None,

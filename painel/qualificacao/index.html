@@ -384,22 +384,8 @@ function renderCriativos(leads) {
 }
 
 async function loadLeads() {
-  // Tenta view live (quando existir). Fallback: seed.json estático.
-  try {
-    const r = await fetch(`${SB}/rest/v1/v_leads_qualificacao?select=*&limit=5000`, { headers: H });
-    if (r.ok) {
-      const data = await r.json();
-      if (data.length > 0) {
-        document.getElementById('lastUpdate').textContent = 'Fonte: live (view Supabase) — ';
-        return data;
-      }
-    }
-  } catch (e) { console.warn('view live indisponível, caindo pro seed', e); }
-  // Fallback: seed.json local
-  const r2 = await fetch('seed.json');
-  if (!r2.ok) throw new Error('seed.json não encontrado e view ainda não criada');
-  document.getElementById('lastUpdate').textContent = 'Fonte: seed.json estático — ';
-  return await r2.json();
+  // Lê da view pública no Supabase (paginada)
+  return await fetchAll('/rest/v1/v_leads_qualificacao?select=*');
 }
 
 async function loadAll() {
@@ -414,7 +400,7 @@ async function loadAll() {
     renderCriativos(leads);
 
     const now = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
-    document.getElementById('lastUpdate').textContent += `atualizado em ${now}`;
+    document.getElementById('lastUpdate').textContent = `Atualizado em ${now} (live via Supabase)`;
   } catch (e) {
     console.error(e);
     document.getElementById('error').textContent = 'Erro carregando dados: ' + e.message;
